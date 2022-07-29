@@ -1,19 +1,25 @@
 package io.camunda.connector;
 
+import io.camunda.connector.api.ConnectorInput;
 import io.camunda.connector.api.SecretStore;
 import io.camunda.connector.api.Validator;
 import java.util.Objects;
 
-public class MyConnectorRequest {
+public class MyConnectorRequest implements ConnectorInput {
 
   private String message;
   private String token;
 
+  @Override
   public void validateWith(final Validator validator) {
     validator.require(message, "message");
     validator.require(token, "token");
+    if (token != null && !token.startsWith("xobx")) {
+      validator.addErrorMessage("Token must start with \"xobx\"");
+    }
   }
 
+  @Override
   public void replaceSecrets(final SecretStore secretStore) {
     token = secretStore.replaceSecret(token);
   }

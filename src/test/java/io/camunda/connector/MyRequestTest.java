@@ -19,7 +19,7 @@ public class MyRequestTest {
       .secret("MY_TOKEN", "token value")
       .build();
     // when
-    input.replaceSecrets(context.getSecretStore());
+    context.replaceSecrets(input);
     // then
     assertThat(input)
       .extracting("token")
@@ -37,20 +37,35 @@ public class MyRequestTest {
     assertThatThrownBy(() -> validator.evaluate())
       // then
       .isInstanceOf(IllegalArgumentException.class)
-      .hasMessage("Property 'token' is missing");
+      .hasMessageContaining("token");
   }
 
   @Test
   void shouldFailWhenValidate_NoMesage() {
     // given
     var input = new MyConnectorRequest();
-    input.setToken("test");
+    input.setToken("xobx-test");
     var validator = new Validator();
     input.validateWith(validator);
     // when
     assertThatThrownBy(() -> validator.evaluate())
       // then
       .isInstanceOf(IllegalArgumentException.class)
-      .hasMessage("Property 'message' is missing");
+      .hasMessageContaining("message");
+  }
+
+  @Test
+  void shouldFailWhenValidate_TokenWrongPattern() {
+    // given
+    var input = new MyConnectorRequest();
+    input.setToken("test");
+    input.setMessage("foo");
+    var validator = new Validator();
+    input.validateWith(validator);
+    // when
+    assertThatThrownBy(() -> validator.evaluate())
+      // then
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessageContaining("Token must start with \"xobx\"");
   }
 }
