@@ -27,7 +27,8 @@ mvn clean package
 
 ```json
 {
-  "myProperty": "....."
+  "token": ".....",
+  "message": "....."
 }
 ```
 
