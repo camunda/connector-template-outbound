@@ -2,7 +2,6 @@ package io.camunda.connector;
 
 import io.camunda.connector.api.ConnectorContext;
 import io.camunda.connector.api.ConnectorFunction;
-import io.camunda.connector.api.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +13,8 @@ public class MyConnectorFunction implements ConnectorFunction {
   public Object execute(ConnectorContext context) throws Exception {
     var connectorRequest = context.getVariablesAsType(MyConnectorRequest.class);
 
-    var validator = new Validator();
-    connectorRequest.validateWith(validator);
-    validator.evaluate();
-
-    connectorRequest.replaceSecrets(context.getSecretStore());
+    context.validate(connectorRequest);
+    context.replaceSecrets(connectorRequest);
 
     return executeConnector(connectorRequest);
   }

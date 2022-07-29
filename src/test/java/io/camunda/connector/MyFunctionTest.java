@@ -12,7 +12,7 @@ public class MyFunctionTest {
     // given
     var input = new MyConnectorRequest();
     input.setMessage("Hello World!");
-    input.setToken("test");
+    input.setToken("xobx-test");
     var function = new MyConnectorFunction();
     var context = ConnectorContextBuilder.create()
       .variables(input)
