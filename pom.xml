@@ -19,7 +19,7 @@
     <!-- external libraries -->
     <version.assertj>3.23.1</version.assertj>
     <version.junit-jupiter>5.9.0</version.junit-jupiter>
-    <version.mockito>4.6.1</version.mockito>
+    <version.mockito>4.7.0</version.mockito>
     <version.slf4j>1.7.36</version.slf4j>
     
     <!-- maven plugins -->
