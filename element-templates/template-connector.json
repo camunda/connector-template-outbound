@@ -41,13 +41,28 @@
         }
       },
       {
-        "label": "OAuth Token",
+        "label": "Username",
+        "description": "The username for authentication.",
         "group": "authentication",
         "type": "String",
         "feel": "optional",
         "binding": {
           "type": "zeebe:input",
-          "name": "token"
+          "name": "authentication.user"
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Token",
+        "description": "The token for authentication.",
+        "group": "authentication",
+        "type": "String",
+        "feel": "optional",
+        "binding": {
+          "type": "zeebe:input",
+          "name": "authentication.token"
         },
         "constraints": {
           "notEmpty": true
