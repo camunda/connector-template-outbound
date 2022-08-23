@@ -2,8 +2,6 @@ package io.camunda.connector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import io.camunda.connector.api.Validator;
 import io.camunda.connector.test.ConnectorContextBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +11,11 @@ public class MyRequestTest {
   void shouldReplaceTokenSecretWhenReplaceSecrets() {
     // given
     var input = new MyConnectorRequest();
+    var auth = new Authentication();
     input.setMessage("Hello World!");
-    input.setToken("secrets.MY_TOKEN");
+    input.setAuthentication(auth);
+    auth.setToken("secrets.MY_TOKEN");
+    auth.setUser("testuser");
     var context = ConnectorContextBuilder.create()
       .secret("MY_TOKEN", "token value")
       .build();
@@ -22,19 +23,35 @@ public class MyRequestTest {
     context.replaceSecrets(input);
     // then
     assertThat(input)
+      .extracting("authentication")
       .extracting("token")
       .isEqualTo("token value");
+  }
+
+  @Test
+  void shouldFailWhenValidate_NoAuthentication() {
+    // given
+    var input = new MyConnectorRequest();
+    input.setMessage("Hello World!");
+    var context = ConnectorContextBuilder.create().build();
+    // when
+    assertThatThrownBy(() -> context.validate(input))
+      // then
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessageContaining("authentication");
   }
 
   @Test
   void shouldFailWhenValidate_NoToken() {
     // given
     var input = new MyConnectorRequest();
+    var auth = new Authentication();
     input.setMessage("Hello World!");
-    var validator = new Validator();
-    input.validateWith(validator);
+    input.setAuthentication(auth);
+    auth.setUser("testuser");
+    var context = ConnectorContextBuilder.create().build();
     // when
-    assertThatThrownBy(() -> validator.evaluate())
+    assertThatThrownBy(() -> context.validate(input))
       // then
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessageContaining("token");
@@ -44,11 +61,13 @@ public class MyRequestTest {
   void shouldFailWhenValidate_NoMesage() {
     // given
     var input = new MyConnectorRequest();
-    input.setToken("xobx-test");
-    var validator = new Validator();
-    input.validateWith(validator);
+    var auth = new Authentication();
+    input.setAuthentication(auth);
+    auth.setUser("testuser");
+    auth.setToken("xobx-test");
+    var context = ConnectorContextBuilder.create().build();
     // when
-    assertThatThrownBy(() -> validator.evaluate())
+    assertThatThrownBy(() -> context.validate(input))
       // then
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessageContaining("message");
@@ -58,12 +77,14 @@ public class MyRequestTest {
   void shouldFailWhenValidate_TokenWrongPattern() {
     // given
     var input = new MyConnectorRequest();
-    input.setToken("test");
+    var auth = new Authentication();
     input.setMessage("foo");
-    var validator = new Validator();
-    input.validateWith(validator);
+    input.setAuthentication(auth);
+    auth.setUser("testuser");
+    auth.setToken("test");
+    var context = ConnectorContextBuilder.create().build();
     // when
-    assertThatThrownBy(() -> validator.evaluate())
+    assertThatThrownBy(() -> context.validate(input))
       // then
       .isInstanceOf(IllegalArgumentException.class)
       .hasMessageContaining("Token must start with \"xobx\"");

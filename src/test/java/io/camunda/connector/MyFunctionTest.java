@@ -11,8 +11,11 @@ public class MyFunctionTest {
   void shouldReturnReceivedMessageWhenExecute() throws Exception {
     // given
     var input = new MyConnectorRequest();
+    var auth = new Authentication();
     input.setMessage("Hello World!");
-    input.setToken("xobx-test");
+    input.setAuthentication(auth);
+    auth.setToken("xobx-test");
+    auth.setUser("testuser");
     var function = new MyConnectorFunction();
     var context = ConnectorContextBuilder.create()
       .variables(input)

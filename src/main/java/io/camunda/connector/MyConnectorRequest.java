@@ -8,20 +8,18 @@ import java.util.Objects;
 public class MyConnectorRequest implements ConnectorInput {
 
   private String message;
-  private String token;
+  private Authentication authentication;
 
   @Override
   public void validateWith(final Validator validator) {
     validator.require(message, "message");
-    validator.require(token, "token");
-    if (token != null && !token.startsWith("xobx")) {
-      validator.addErrorMessage("Token must start with \"xobx\"");
-    }
+    validator.require(authentication, "authentication");
+    validateIfNotNull(authentication, validator);
   }
 
   @Override
   public void replaceSecrets(final SecretStore secretStore) {
-    token = secretStore.replaceSecret(token);
+    replaceSecretsIfNotNull(authentication, secretStore);
   }
 
   public String getMessage() {
@@ -32,17 +30,17 @@ public class MyConnectorRequest implements ConnectorInput {
     this.message = message;
   }
 
-  public String getToken() {
-    return token;
+  public Authentication getAuthentication() {
+    return authentication;
   }
 
-  public void setToken(String token) {
-    this.token = token;
+  public void setAuthentication(Authentication authentication) {
+    this.authentication = authentication;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, token);
+    return Objects.hash(authentication, message);
   }
 
   @Override
@@ -51,12 +49,12 @@ public class MyConnectorRequest implements ConnectorInput {
     if (obj == null) return false;
     if (getClass() != obj.getClass()) return false;
     MyConnectorRequest other = (MyConnectorRequest) obj;
-    return Objects.equals(message, other.message) && Objects.equals(token, other.token);
+    return Objects.equals(authentication, other.authentication)
+        && Objects.equals(message, other.message);
   }
 
   @Override
   public String toString() {
-    return "MyConnectorRequest [message=" + message + ", token=" + token + "]";
+    return "MyConnectorRequest [message=" + message + ", authentication=" + authentication + "]";
   }
-
 }
