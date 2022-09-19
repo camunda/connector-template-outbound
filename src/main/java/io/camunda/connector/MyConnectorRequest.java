@@ -1,26 +1,21 @@
 package io.camunda.connector;
 
-import io.camunda.connector.api.ConnectorInput;
-import io.camunda.connector.api.SecretStore;
-import io.camunda.connector.api.Validator;
+import io.camunda.connector.api.annotation.Secret;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
-public class MyConnectorRequest implements ConnectorInput {
+public class MyConnectorRequest {
 
+  @NotEmpty
   private String message;
+
+  @Valid
+  @NotNull
+  @Secret
   private Authentication authentication;
-
-  @Override
-  public void validateWith(final Validator validator) {
-    validator.require(message, "message");
-    validator.require(authentication, "authentication");
-    validateIfNotNull(authentication, validator);
-  }
-
-  @Override
-  public void replaceSecrets(final SecretStore secretStore) {
-    replaceSecretsIfNotNull(authentication, secretStore);
-  }
 
   public String getMessage() {
     return message;

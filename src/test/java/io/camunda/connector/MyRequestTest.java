@@ -2,7 +2,9 @@ package io.camunda.connector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import io.camunda.connector.test.ConnectorContextBuilder;
+
+import io.camunda.connector.impl.ConnectorInputException;
+import io.camunda.connector.test.outbound.OutboundConnectorContextBuilder;
 import org.junit.jupiter.api.Test;
 
 public class MyRequestTest {
@@ -16,7 +18,7 @@ public class MyRequestTest {
     input.setAuthentication(auth);
     auth.setToken("secrets.MY_TOKEN");
     auth.setUser("testuser");
-    var context = ConnectorContextBuilder.create()
+    var context = OutboundConnectorContextBuilder.create()
       .secret("MY_TOKEN", "token value")
       .build();
     // when
@@ -33,11 +35,11 @@ public class MyRequestTest {
     // given
     var input = new MyConnectorRequest();
     input.setMessage("Hello World!");
-    var context = ConnectorContextBuilder.create().build();
+    var context = OutboundConnectorContextBuilder.create().build();
     // when
     assertThatThrownBy(() -> context.validate(input))
       // then
-      .isInstanceOf(IllegalArgumentException.class)
+      .isInstanceOf(ConnectorInputException.class)
       .hasMessageContaining("authentication");
   }
 
@@ -49,11 +51,11 @@ public class MyRequestTest {
     input.setMessage("Hello World!");
     input.setAuthentication(auth);
     auth.setUser("testuser");
-    var context = ConnectorContextBuilder.create().build();
+    var context = OutboundConnectorContextBuilder.create().build();
     // when
     assertThatThrownBy(() -> context.validate(input))
       // then
-      .isInstanceOf(IllegalArgumentException.class)
+      .isInstanceOf(ConnectorInputException.class)
       .hasMessageContaining("token");
   }
 
@@ -65,11 +67,11 @@ public class MyRequestTest {
     input.setAuthentication(auth);
     auth.setUser("testuser");
     auth.setToken("xobx-test");
-    var context = ConnectorContextBuilder.create().build();
+    var context = OutboundConnectorContextBuilder.create().build();
     // when
     assertThatThrownBy(() -> context.validate(input))
       // then
-      .isInstanceOf(IllegalArgumentException.class)
+      .isInstanceOf(ConnectorInputException.class)
       .hasMessageContaining("message");
   }
 
@@ -82,11 +84,11 @@ public class MyRequestTest {
     input.setAuthentication(auth);
     auth.setUser("testuser");
     auth.setToken("test");
-    var context = ConnectorContextBuilder.create().build();
+    var context = OutboundConnectorContextBuilder.create().build();
     // when
     assertThatThrownBy(() -> context.validate(input))
       // then
-      .isInstanceOf(IllegalArgumentException.class)
+      .isInstanceOf(ConnectorInputException.class)
       .hasMessageContaining("Token must start with \"xobx\"");
   }
 }
