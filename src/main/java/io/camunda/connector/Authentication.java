@@ -1,28 +1,20 @@
 package io.camunda.connector;
 
-import io.camunda.connector.api.ConnectorInput;
-import io.camunda.connector.api.SecretStore;
-import io.camunda.connector.api.Validator;
+import io.camunda.connector.api.annotation.Secret;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.Objects;
 
-public class Authentication implements ConnectorInput {
+public class Authentication {
 
+  @NotEmpty
   private String user;
+
+  @NotEmpty
+  @Pattern(regexp = "^(xobx|secrets\\.).+", message = "Token must start with \"xobx\" or be a secret.")
+  @Secret
   private String token;
-
-  @Override
-  public void validateWith(final Validator validator) {
-    validator.require(user, "user");
-    validator.require(token, "token");
-    if (token != null && !token.startsWith("xobx")) {
-      validator.addErrorMessage("Token must start with \"xobx\"");
-    }
-  }
-
-  @Override
-  public void replaceSecrets(final SecretStore secretStore) {
-    token = secretStore.replaceSecret(token);
-  }
 
   public String getUser() {
     return user;

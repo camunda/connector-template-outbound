@@ -2,7 +2,7 @@ package io.camunda.connector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.camunda.connector.test.ConnectorContextBuilder;
+import io.camunda.connector.test.outbound.OutboundConnectorContextBuilder;
 import org.junit.jupiter.api.Test;
 
 public class MyFunctionTest {
@@ -17,7 +17,7 @@ public class MyFunctionTest {
     auth.setToken("xobx-test");
     auth.setUser("testuser");
     var function = new MyConnectorFunction();
-    var context = ConnectorContextBuilder.create()
+    var context = OutboundConnectorContextBuilder.create()
       .variables(input)
       .build();
     // when

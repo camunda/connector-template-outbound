@@ -1,16 +1,16 @@
 package io.camunda.connector;
 
-import io.camunda.connector.api.ConnectorContext;
-import io.camunda.connector.api.ConnectorFunction;
+import io.camunda.connector.api.outbound.OutboundConnectorContext;
+import io.camunda.connector.api.outbound.OutboundConnectorFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MyConnectorFunction implements ConnectorFunction {
+public class MyConnectorFunction implements OutboundConnectorFunction {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MyConnectorFunction.class);
 
   @Override
-  public Object execute(ConnectorContext context) throws Exception {
+  public Object execute(OutboundConnectorContext context) throws Exception {
     var connectorRequest = context.getVariablesAsType(MyConnectorRequest.class);
 
     context.validate(connectorRequest);
