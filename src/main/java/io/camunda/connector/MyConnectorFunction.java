@@ -1,10 +1,15 @@
 package io.camunda.connector;
 
+import io.camunda.connector.api.annotation.OutboundConnector;
 import io.camunda.connector.api.outbound.OutboundConnectorContext;
 import io.camunda.connector.api.outbound.OutboundConnectorFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@OutboundConnector(
+    name = "MYCONNECTOR",
+    inputVariables = {"myProperty", "authentication"},
+    type = "io.camunda:my-connector:1")
 public class MyConnectorFunction implements OutboundConnectorFunction {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MyConnectorFunction.class);
