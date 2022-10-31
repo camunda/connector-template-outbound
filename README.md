@@ -59,6 +59,12 @@ provides more details on relocations.
 }
 ```
 
+### Error codes
+
+| Code | Description |
+| - | - |
+| FAIL | Message starts with 'fail' (ignoring case) |
+
 ## Test locally
 
 Run unit tests
