@@ -38,11 +38,13 @@
       <groupId>io.camunda.connector</groupId>
       <artifactId>connector-core</artifactId>
       <version>${version.connector-core}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.camunda.connector</groupId>
       <artifactId>connector-validation</artifactId>
       <version>${version.connector-core}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
