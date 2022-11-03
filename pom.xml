@@ -29,6 +29,7 @@
     <plugin.version.maven-install-plugin>3.0.1</plugin.version.maven-install-plugin>
     <plugin.version.maven-jar-plugin>3.2.2</plugin.version.maven-jar-plugin>
     <plugin.version.maven-resources-plugin>3.3.0</plugin.version.maven-resources-plugin>
+    <plugin.version.maven-shade-plugin>3.4.1</plugin.version.maven-shade-plugin>
     <plugin.version.maven-surefire-plugin>3.0.0-M7</plugin.version.maven-surefire-plugin>
   </properties>
 
@@ -63,11 +64,18 @@
       <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${version.assertj}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${version.slf4j}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -110,11 +118,65 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${plugin.version.maven-shade-plugin}</version>
+          <configuration>
+            <shadedArtifactAttached>true</shadedArtifactAttached>
+            <shadedClassifierName>with-dependencies</shadedClassifierName>
+            <!-- no need for this since we are not consuming this artifact downstream -->
+            <createDependencyReducedPom>false</createDependencyReducedPom>
+            <filters>
+              <filter>
+                <artifact>*:*</artifact>
+                <excludes>
+                  <exclude>module-info.class</exclude>
+                  <exclude>META-INF/*.SF</exclude>
+                  <exclude>META-INF/*.DSA</exclude>
+                  <exclude>META-INF/*.RSA</exclude>
+                </excludes>
+              </filter>
+            </filters>
+            <transformers>
+              <!-- This is needed if you have dependencies that use Service Loader. Most Google Cloud client libraries does. -->
+              <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              <!-- This is needed to not repeat licenses in the META-INF directory -->
+              <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+              <!-- This is needed to merge existing NOTICE files and keep them downstream -->
+              <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                <addHeader>false</addHeader>
+              </transformer>
+            </transformers>
+            <!-- Uncomment and adjust to use relocations inside your JAR -->
+            <!--<relocations>
+              <relocation>
+                <pattern>com.fasterxml.jackson</pattern>
+                <shadedPattern>myconnector.com.fasterxml.jackson</shadedPattern>
+              </relocation>
+            </relocations>-->
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${plugin.version.maven-surefire-plugin}</version>
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 
   <repositories>
