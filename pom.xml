@@ -146,7 +146,7 @@
                 <addHeader>false</addHeader>
               </transformer>
             </transformers>
-            <!-- include relocation to shade dependencies inside your JAR -->
+            <!-- Uncomment and adjust to use relocations inside your JAR -->
             <!--<relocations>
               <relocation>
                 <pattern>com.fasterxml.jackson</pattern>
