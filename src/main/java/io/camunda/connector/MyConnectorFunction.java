@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 @OutboundConnector(
     name = "MYCONNECTOR",
     inputVariables = {"myProperty", "authentication"},
-    type = "io.camunda:my-connector:1")
+    type = "io.camunda:template:1")
 public class MyConnectorFunction implements OutboundConnectorFunction {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MyConnectorFunction.class);
