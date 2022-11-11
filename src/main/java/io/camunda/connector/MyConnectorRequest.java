@@ -1,9 +1,9 @@
 package io.camunda.connector;
 
 import io.camunda.connector.api.annotation.Secret;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import java.util.Objects;
 
