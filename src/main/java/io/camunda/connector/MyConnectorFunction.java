@@ -1,6 +1,7 @@
 package io.camunda.connector;
 
 import io.camunda.connector.api.annotation.OutboundConnector;
+import io.camunda.connector.api.error.ConnectorException;
 import io.camunda.connector.api.outbound.OutboundConnectorContext;
 import io.camunda.connector.api.outbound.OutboundConnectorFunction;
 import org.slf4j.Logger;
@@ -27,8 +28,12 @@ public class MyConnectorFunction implements OutboundConnectorFunction {
   private MyConnectorResult executeConnector(final MyConnectorRequest connectorRequest) {
     // TODO: implement connector logic
     LOGGER.info("Executing my connector with request {}", connectorRequest);
+    String message = connectorRequest.getMessage();
+    if (message != null && message.toLowerCase().startsWith("fail")) {
+      throw new ConnectorException("FAIL", "My property started with 'fail', was: " + message);
+    }
     var result = new MyConnectorResult();
-    result.setMyProperty("Message received: " + connectorRequest.getMessage());
+    result.setMyProperty("Message received: " + message);
     return result;
   }
 }
