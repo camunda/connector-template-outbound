@@ -31,7 +31,7 @@ This will create the following artifacts:
 ### Shading dependencies
 
 You can use the `maven-shade-plugin` defined in the [Maven configuration](./pom.xml) to relocate common dependencies
-that are used in other Connectors and the [Connector Runtime](https://github.com/camunda/connector-sdk/tree/main/runtime).
+that are used in other Connectors and the [Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles).
 This helps avoiding classpath conflicts when the Connector is executed. 
 
 Use the `relocations` configuration in the Maven Shade plugin to define the dependencies that should be shaded.
@@ -73,7 +73,7 @@ Run unit tests
 mvn clean verify
 ```
 
-Use the [Camunda Job Worker Connector Run-Time](https://github.com/camunda/connector-sdk/tree/main/runtime) to run your function as a local Job Worker.
+Use the [Camunda Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles) to run your function as a local Job Worker.
 
 ## Element Template
 
