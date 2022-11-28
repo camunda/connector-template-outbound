@@ -73,7 +73,12 @@ Run unit tests
 mvn clean verify
 ```
 
-Use the [Camunda Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles) to run your function as a local Job Worker.
+### Test with local runtime
+
+Use the [Camunda Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles) to run your function as a local Java application.
+
+In your IDE you can also simply navigate to the `LocalContainerRuntime` class in test scope and run it via your IDE.
+If necessary, you can adjust `application.properties` in test scope.
 
 ## Element Template
 

@@ -15,6 +15,7 @@
 
     <!-- connector SDK version -->
     <version.connector-core>0.3.0</version.connector-core>
+    <version.spring-zeebe>8.1.6</version.spring-zeebe>
 
     <!-- external libraries -->
     <version.assertj>3.23.1</version.assertj>
@@ -79,6 +80,20 @@
       <artifactId>slf4j-jdk14</artifactId>
       <version>${version.slf4j}</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- for testing connectors locally in bundle with runtime -->
+    <dependency>
+      <groupId>io.camunda</groupId>
+      <artifactId>spring-zeebe-connector-runtime</artifactId>
+      <version>${version.spring-zeebe}</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
