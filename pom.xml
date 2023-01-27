@@ -18,7 +18,7 @@
     <version.spring-zeebe>8.1.13</version.spring-zeebe>
 
     <!-- external libraries -->
-    <version.assertj>3.23.1</version.assertj>
+    <version.assertj>3.24.2</version.assertj>
     <version.junit-jupiter>5.9.1</version.junit-jupiter>
     <version.mockito>4.11.0</version.mockito>
     <version.slf4j>2.0.6</version.slf4j>
