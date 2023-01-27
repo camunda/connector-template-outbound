@@ -21,7 +21,7 @@
     <version.assertj>3.23.1</version.assertj>
     <version.junit-jupiter>5.9.1</version.junit-jupiter>
     <version.mockito>4.10.0</version.mockito>
-    <version.slf4j>1.7.36</version.slf4j>
+    <version.slf4j>2.0.6</version.slf4j>
 
     <!-- maven plugins -->
     <plugin.version.maven-clean-plugin>3.2.0</plugin.version.maven-clean-plugin>
