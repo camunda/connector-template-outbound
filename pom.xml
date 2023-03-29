@@ -15,7 +15,7 @@
 
     <!-- connector SDK version -->
     <version.connector-core>0.7.0</version.connector-core>
-    <version.spring-zeebe>8.1.14</version.spring-zeebe>
+    <version.spring-zeebe>8.1.17</version.spring-zeebe>
 
     <!-- external libraries -->
     <version.assertj>3.24.2</version.assertj>
