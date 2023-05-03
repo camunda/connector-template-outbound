@@ -1,4 +1,4 @@
-> A template for new C8 connectors.
+> A Connector template for new C8 outbound connector
 >
 > To use this template update the following resources to match the name of your connector:
 >
@@ -6,14 +6,18 @@
 > * [Element Template](./element-templates/template-connector.json)
 > * [POM](./pom.xml) (artifact name, id, description)
 > * [Connector Function](./src/main/java/io/camunda/connector/MyConnectorFunction.java) (rename, implement, update `OutboundConnector` annotation)
-> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.ConnectorFunction#L1) (rename)
+> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (rename)
 >
 > ...and delete this hint.
+> 
+> Read more about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
+>
+> Check out the [Connectors SDK](https://github.com/camunda/connector-sdk)
 
 
 # Connector Template
 
-Camunda Connector Template
+Camunda Outbound Connector Template
 
 ## Build
 
@@ -32,7 +36,7 @@ This will create the following artifacts:
 
 You can use the `maven-shade-plugin` defined in the [Maven configuration](./pom.xml) to relocate common dependencies
 that are used in other Connectors and the [Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles).
-This helps avoiding classpath conflicts when the Connector is executed. 
+This helps to avoid classpath conflicts when the Connector is executed. 
 
 Use the `relocations` configuration in the Maven Shade plugin to define the dependencies that should be shaded.
 The [Maven Shade documentation](https://maven.apache.org/plugins/maven-shade-plugin/examples/class-relocation.html) 
@@ -61,8 +65,8 @@ provides more details on relocations.
 
 ### Error codes
 
-| Code | Description |
-| - | - |
+| Code | Description                                |
+|------|--------------------------------------------|
 | FAIL | Message starts with 'fail' (ignoring case) |
 
 ## Test locally
