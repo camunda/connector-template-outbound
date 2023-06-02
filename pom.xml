@@ -14,11 +14,11 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- connector SDK version -->
-    <version.connector-core>0.8.1</version.connector-core>
-    <version.spring-zeebe>8.2.0</version.spring-zeebe>
+    <version.connector-core>0.10.0-rc1</version.connector-core>
+    <version.connector-runtime>0.20.0-alpha2</version.connector-runtime>
 
     <!-- external libraries -->
-    <version.jackson>2.14.2</version.jackson>
+    <version.jackson>2.15.2</version.jackson>
     <version.assertj>3.24.2</version.assertj>
     <version.junit-jupiter>5.9.3</version.junit-jupiter>
     <version.mockito>5.3.1</version.mockito>
@@ -116,9 +116,9 @@
 
     <!-- for testing connectors locally in bundle with runtime -->
     <dependency>
-      <groupId>io.camunda.spring</groupId>
-      <artifactId>spring-zeebe-connector-runtime</artifactId>
-      <version>${version.spring-zeebe}</version>
+      <groupId>io.camunda.connector</groupId>
+      <artifactId>spring-boot-starter-camunda-connectors</artifactId>
+      <version>${version.connector-runtime}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>

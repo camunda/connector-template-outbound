@@ -1,4 +1,4 @@
-package io.camunda.connector;
+package io.camunda.example;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
