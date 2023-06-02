@@ -1,4 +1,4 @@
-package io.camunda.connector;
+package io.camunda.example;
 
 import io.camunda.connector.api.annotation.OutboundConnector;
 import io.camunda.connector.api.error.ConnectorException;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 @OutboundConnector(
     name = "MYCONNECTOR",
-    inputVariables = {"myProperty", "authentication"},
+    inputVariables = {"authentication", "message"},
     type = "io.camunda:template:1")
 public class MyConnectorFunction implements OutboundConnectorFunction {
 

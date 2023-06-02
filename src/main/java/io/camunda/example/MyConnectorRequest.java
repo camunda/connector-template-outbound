@@ -1,4 +1,4 @@
-package io.camunda.connector;
+package io.camunda.example;
 
 import io.camunda.connector.api.annotation.Secret;
 import javax.validation.Valid;

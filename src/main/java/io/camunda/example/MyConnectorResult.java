@@ -1,4 +1,4 @@
-package io.camunda.connector;
+package io.camunda.example;
 
 import java.util.Objects;
 
