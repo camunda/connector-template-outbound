@@ -18,9 +18,10 @@ public class MyRequestTest {
   @Test
   void shouldReplaceTokenSecretWhenReplaceSecrets() throws JsonProcessingException {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("Hello World!");
-    input.setAuthentication(new Authentication("testUser", "secrets.MY_TOKEN"));
+    var input = new MyConnectorRequest(
+            "Hello World!",
+            new Authentication("testUser", "secrets.MY_TOKEN")
+    );
     var context = OutboundConnectorContextBuilder.create()
       .secret("MY_TOKEN", "token value")
             .variables(objectMapper.writeValueAsString(input))
@@ -37,8 +38,10 @@ public class MyRequestTest {
   @Test
   void shouldFailWhenValidate_NoAuthentication() throws JsonProcessingException {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("Hello World!");
+    var input = new MyConnectorRequest(
+            "Hello World!",
+            null
+    );
     var context = OutboundConnectorContextBuilder.create().variables(objectMapper.writeValueAsString(input)).build();
     // when
     assertThatThrownBy(() -> context.bindVariables(MyConnectorRequest.class))
@@ -50,9 +53,10 @@ public class MyRequestTest {
   @Test
   void shouldFailWhenValidate_NoToken() throws JsonProcessingException {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("Hello World!");
-    input.setAuthentication(new Authentication("testUser", null));
+    var input = new MyConnectorRequest(
+            "Hello World!",
+            new Authentication("testUser", null)
+    );
     var context = OutboundConnectorContextBuilder.create().variables(objectMapper.writeValueAsString(input)).build();
     // when
     assertThatThrownBy(() -> context.bindVariables(MyConnectorRequest.class))
@@ -64,8 +68,10 @@ public class MyRequestTest {
   @Test
   void shouldFailWhenValidate_NoMesage() throws JsonProcessingException {
     // given
-    var input = new MyConnectorRequest();
-    input.setAuthentication(new Authentication("testUser", "testToken"));
+    var input = new MyConnectorRequest(
+            null,
+            new Authentication("testUser", "testToken")
+    );
     var context = OutboundConnectorContextBuilder.create().variables(objectMapper.writeValueAsString(input)).build();
     // when
     assertThatThrownBy(() -> context.bindVariables(MyConnectorRequest.class))
@@ -77,9 +83,10 @@ public class MyRequestTest {
   @Test
   void shouldFailWhenValidate_TokenEmpty() throws JsonProcessingException {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("foo");
-    input.setAuthentication(new Authentication("testUser", ""));
+    var input = new MyConnectorRequest(
+            "foo",
+            new Authentication("testUser", "")
+    );
     var context = OutboundConnectorContextBuilder.create().variables(objectMapper.writeValueAsString(input)).build();
     // when
     assertThatThrownBy(() -> context.bindVariables(MyConnectorRequest.class))

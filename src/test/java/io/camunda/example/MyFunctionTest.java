@@ -18,9 +18,10 @@ public class MyFunctionTest {
   @Test
   void shouldReturnReceivedMessageWhenExecute() throws Exception {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("Hello World!");
-    input.setAuthentication(new Authentication("testUser", "testToken"));
+    var input = new MyConnectorRequest(
+            "Hello World!",
+            new Authentication("testUser", "testToken")
+    );
     var function = new MyConnectorFunction();
     var context = OutboundConnectorContextBuilder.create()
       .variables(objectMapper.writeValueAsString(input))
@@ -37,9 +38,10 @@ public class MyFunctionTest {
   @Test
   void shouldThrowWithErrorCodeWhenMessageStartsWithFail() throws Exception {
     // given
-    var input = new MyConnectorRequest();
-    input.setMessage("Fail: unauthorized");
-    input.setAuthentication(new Authentication("testUser", "testToken"));
+    var input = new MyConnectorRequest(
+            "Fail: unauthorized",
+            new Authentication("testUser", "testToken")
+    );
     var function = new MyConnectorFunction();
     var context = OutboundConnectorContextBuilder.create()
         .variables(objectMapper.writeValueAsString(input))
