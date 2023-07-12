@@ -1,6 +1,5 @@
 package io.camunda.example;
 
-import io.camunda.connector.api.annotation.Secret;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,6 @@ public class MyConnectorRequest {
 
   @Valid
   @NotNull
-  @Secret
   private Authentication authentication;
 
   public String getMessage() {

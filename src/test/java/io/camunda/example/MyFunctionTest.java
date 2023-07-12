@@ -3,11 +3,15 @@ package io.camunda.example;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.camunda.connector.api.error.ConnectorException;
 import io.camunda.connector.test.outbound.OutboundConnectorContextBuilder;
 import org.junit.jupiter.api.Test;
 
 public class MyFunctionTest {
+
+  ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
   void shouldReturnReceivedMessageWhenExecute() throws Exception {
@@ -20,7 +24,7 @@ public class MyFunctionTest {
     auth.setUser("testuser");
     var function = new MyConnectorFunction();
     var context = OutboundConnectorContextBuilder.create()
-      .variables(input)
+      .variables(objectMapper.writeValueAsString(input))
       .build();
     // when
     var result = function.execute(context);
@@ -32,7 +36,7 @@ public class MyFunctionTest {
   }
 
   @Test
-  void shouldThrowWithErrorCodeWhenMessageStartsWithFail() {
+  void shouldThrowWithErrorCodeWhenMessageStartsWithFail() throws Exception {
     // given
     var input = new MyConnectorRequest();
     var auth = new Authentication();
@@ -42,7 +46,7 @@ public class MyFunctionTest {
     auth.setUser("testuser");
     var function = new MyConnectorFunction();
     var context = OutboundConnectorContextBuilder.create()
-        .variables(input)
+        .variables(objectMapper.writeValueAsString(input))
         .build();
     // when
     var result = catchThrowable(() -> function.execute(context));

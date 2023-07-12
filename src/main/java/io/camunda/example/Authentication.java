@@ -1,9 +1,6 @@
 package io.camunda.example;
 
-import io.camunda.connector.api.annotation.Secret;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-
 import java.util.Objects;
 
 public class Authentication {
@@ -12,8 +9,6 @@ public class Authentication {
   private String user;
 
   @NotEmpty
-  @Pattern(regexp = "^(xobx|secrets\\.).+", message = "Token must start with \"xobx\" or be a secret.")
-  @Secret
   private String token;
 
   public String getUser() {

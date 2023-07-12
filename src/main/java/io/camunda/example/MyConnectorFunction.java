@@ -16,12 +16,8 @@ public class MyConnectorFunction implements OutboundConnectorFunction {
   private static final Logger LOGGER = LoggerFactory.getLogger(MyConnectorFunction.class);
 
   @Override
-  public Object execute(OutboundConnectorContext context) throws Exception {
-    var connectorRequest = context.getVariablesAsType(MyConnectorRequest.class);
-
-    context.validate(connectorRequest);
-    context.replaceSecrets(connectorRequest);
-
+  public Object execute(OutboundConnectorContext context) {
+    final var connectorRequest = context.bindVariables(MyConnectorRequest.class);
     return executeConnector(connectorRequest);
   }
 
