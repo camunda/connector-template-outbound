@@ -1,4 +1,4 @@
-package io.camunda.example;
+package io.camunda.example.dto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
