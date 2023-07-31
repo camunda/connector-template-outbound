@@ -1,5 +1,5 @@
 package io.camunda.example.dto;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
-public record Authentication (@NotEmpty String user, @NotEmpty String token) {}
+public record Authentication(@NotEmpty String user, @NotEmpty String token) {}
