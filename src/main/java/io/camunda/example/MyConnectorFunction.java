@@ -30,8 +30,6 @@ public class MyConnectorFunction implements OutboundConnectorFunction {
     if (message != null && message.toLowerCase().startsWith("fail")) {
       throw new ConnectorException("FAIL", "My property started with 'fail', was: " + message);
     }
-    var result = new MyConnectorResult();
-    result.setMyProperty("Message received: " + message);
-    return result;
+    return new MyConnectorResult("Message received: " + message);
   }
 }
