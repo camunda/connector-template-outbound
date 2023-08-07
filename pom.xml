@@ -15,7 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- connector SDK version -->
-        <version.connector-core>0.11.4</version.connector-core>
+        <version.connector-core>0.22.0</version.connector-core>
         <version.connector-runtime>0.22.0</version.connector-runtime>
 
         <!-- external libraries -->
@@ -55,6 +55,13 @@
         </dependency>
 
         <!-- test dependencies -->
+        <dependency>
+            <groupId>io.camunda.connector</groupId>
+            <artifactId>connector-test</artifactId>
+            <version>${version.connector-core}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
