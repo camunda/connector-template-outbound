@@ -19,6 +19,10 @@
 
 Camunda Outbound Connector Template
 
+Emulates a simple outbound connector function that takes a message and echoes it back.
+
+The function will throw an exception if your message starts with `fail`. This can be used to test error handling.
+
 ## Build
 
 You can package the Connector by running the following command:
@@ -46,19 +50,18 @@ provides more details on relocations.
 
 ### Input
 
-```json
-{
-  "token": ".....",
-  "message": "....."
-}
-```
+| Name     | Description      | Example           | Notes                                                                      |
+|----------|------------------|-------------------|----------------------------------------------------------------------------|
+| username | Mock username    | `alice`           | Has no effect on the function call outcome.                                |
+| token    | Mock token value | `my-secret-token` | Has no effect on the function call outcome.                                |
+| message  | Mock message     | `Hello World`     | Echoed back in the output. If starts with 'fail', an error will be thrown. |
 
 ### Output
 
 ```json
 {
   "result": {
-    "myProperty": "....."
+    "myProperty": "Message received: ..."
   }
 }
 ```
