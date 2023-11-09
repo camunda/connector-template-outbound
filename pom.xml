@@ -27,7 +27,7 @@
     <!-- maven plugins -->
     <plugin.version.maven-clean-plugin>3.3.1</plugin.version.maven-clean-plugin>
     <plugin.version.maven-compiler-plugin>3.11.0</plugin.version.maven-compiler-plugin>
-    <plugin.version.maven-dependency-plugin>3.6.0</plugin.version.maven-dependency-plugin>
+    <plugin.version.maven-dependency-plugin>3.6.1</plugin.version.maven-dependency-plugin>
     <plugin.version.maven-install-plugin>3.1.1</plugin.version.maven-install-plugin>
     <plugin.version.maven-jar-plugin>3.3.0</plugin.version.maven-jar-plugin>
     <plugin.version.maven-resources-plugin>3.3.1</plugin.version.maven-resources-plugin>
