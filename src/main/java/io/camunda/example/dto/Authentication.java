@@ -1,6 +1,6 @@
 package io.camunda.example.dto;
 
-import io.camunda.connector.generator.annotation.TemplateProperty;
+import io.camunda.connector.generator.java.annotation.TemplateProperty;
 import jakarta.validation.constraints.NotEmpty;
 
 public record Authentication(

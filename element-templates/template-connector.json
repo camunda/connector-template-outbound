@@ -25,6 +25,9 @@
   }, {
     "id" : "error",
     "label" : "Error handling"
+  }, {
+    "id" : "retries",
+    "label" : "Retries"
   } ],
   "properties" : [ {
     "value" : "io.camunda:template:1",
@@ -78,7 +81,7 @@
     "type" : "Text"
   }, {
     "id" : "resultVariable",
-    "label" : "Result Variable",
+    "label" : "Result variable",
     "description" : "Name of variable to store the response in",
     "group" : "output",
     "binding" : {
@@ -88,7 +91,7 @@
     "type" : "String"
   }, {
     "id" : "resultExpression",
-    "label" : "Result Expression",
+    "label" : "Result expression",
     "description" : "Expression to map the response into process variables",
     "feel" : "required",
     "group" : "output",
@@ -99,7 +102,7 @@
     "type" : "Text"
   }, {
     "id" : "errorExpression",
-    "label" : "Error Expression",
+    "label" : "Error expression",
     "description" : "Expression to handle errors. Details in the <a href=\"https://docs.camunda.io/docs/components/connectors/use-connectors/\" target=\"_blank\">documentation</a>.",
     "feel" : "required",
     "group" : "error",
@@ -108,6 +111,17 @@
       "type" : "zeebe:taskHeader"
     },
     "type" : "Text"
+  }, {
+    "id" : "retryBackoff",
+    "label" : "Retry backoff",
+    "description" : "ISO-8601 duration to wait between retries",
+    "value" : "PT0S",
+    "group" : "retries",
+    "binding" : {
+      "key" : "retryBackoff",
+      "type" : "zeebe:taskHeader"
+    },
+    "type" : "Hidden"
   } ],
   "icon" : {
     "contents" : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTgiIHdpZHRoPSIxOCIgdmlld0JveD0iMCAwIDEwIDEwIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHRpdGxlPlNsYWNrPC90aXRsZT48ZyBmaWxsPSJub25lIj48cGF0aCBkPSJNMCwwIEwwLDEwIEwxMCwxMCBMMTAsMCB6IiBmaWxsPSIjZWNiMTJmIi8+PC9nPjwvc3ZnPg=="
