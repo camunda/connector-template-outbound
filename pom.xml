@@ -16,7 +16,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- connector SDK version -->
-    <version.connectors>8.3.0</version.connectors>
+    <version.connectors>8.3.1</version.connectors>
 
     <!-- external libraries -->
     <version.assertj>3.24.2</version.assertj>
@@ -57,7 +57,7 @@
     <!-- Element template generator annotations (compile-time only) -->
     <dependency>
       <groupId>io.camunda.connector</groupId>
-      <artifactId>element-template-generator</artifactId>
+      <artifactId>element-template-generator-core</artifactId>
       <version>${version.connectors}</version>
       <optional>true</optional>
     </dependency>
@@ -264,5 +264,19 @@
       <url>https://artifacts.camunda.com/artifactory/connectors-snapshots/</url>
     </repository>
   </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>connectors</id>
+      <name>Connectors Repository</name>
+      <url>https://artifacts.camunda.com/artifactory/connectors/</url>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>connectors-snapshots</id>
+      <name>Connectors Snapshot Repository</name>
+      <url>https://artifacts.camunda.com/artifactory/connectors-snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
