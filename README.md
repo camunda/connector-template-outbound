@@ -90,7 +90,7 @@ If necessary, you can adjust `application.properties` in test scope.
 ## Element Template
 
 The element template for this sample connector is generated automatically based on the connector
-input class using the [Element Template Generator](https://github.com/camunda/connectors/tree/main/connector-sdk/element-template-generator).
+input class using the [Element Template Generator](https://github.com/camunda/connectors/tree/main/element-template-generator/core).
 The generation is embedded in the Maven build and can be triggered by running `mvn clean package`.
 
 It is not mandatory to generate the element template for your connector and you can also create it manually.
