@@ -32,7 +32,8 @@
   "properties" : [ {
     "value" : "io.camunda:template:1",
     "binding" : {
-      "type" : "zeebe:taskDefinition:type"
+      "property" : "type",
+      "type" : "zeebe:taskDefinition"
     },
     "type" : "Hidden"
   }, {
@@ -112,16 +113,29 @@
     },
     "type" : "Text"
   }, {
+    "id" : "retryCount",
+    "label" : "Retries",
+    "description" : "Number of retries",
+    "value" : "3",
+    "feel" : "optional",
+    "group" : "retries",
+    "binding" : {
+      "property" : "retries",
+      "type" : "zeebe:taskDefinition"
+    },
+    "type" : "String"
+  }, {
     "id" : "retryBackoff",
     "label" : "Retry backoff",
     "description" : "ISO-8601 duration to wait between retries",
     "value" : "PT0S",
+    "feel" : "optional",
     "group" : "retries",
     "binding" : {
       "key" : "retryBackoff",
       "type" : "zeebe:taskHeader"
     },
-    "type" : "Hidden"
+    "type" : "String"
   } ],
   "icon" : {
     "contents" : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTgiIHdpZHRoPSIxOCIgdmlld0JveD0iMCAwIDEwIDEwIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHRpdGxlPlNsYWNrPC90aXRsZT48ZyBmaWxsPSJub25lIj48cGF0aCBkPSJNMCwwIEwwLDEwIEwxMCwxMCBMMTAsMCB6IiBmaWxsPSIjZWNiMTJmIi8+PC9nPjwvc3ZnPg=="
