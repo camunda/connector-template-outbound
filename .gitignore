@@ -1,4 +1,4 @@
-# ingore macos fs artefacts
+# ignore macOS fs artifacts
 .DS_Store
 
 # Compiled class file
