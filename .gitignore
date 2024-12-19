@@ -61,3 +61,4 @@ build/
 request*.json
 
 element-templates/.DS_Store
+.DS_Store
