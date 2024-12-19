@@ -73,16 +73,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--
-                &lt;!&ndash; Override concurrent dependency &ndash;&gt;
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                    <version>${version.spring-core}</version>
-                    <scope>test</scope>
-                </dependency>
-        -->
-
     </dependencies>
 
     <build>
