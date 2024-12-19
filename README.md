@@ -34,7 +34,7 @@ mvn clean package
 This will create the following artifacts:
 
 - A thin JAR without dependencies.
-- An fat JAR containing all dependencies, potentially shaded to avoid classpath conflicts. This will not include the SDK artifacts since those are in scope `provided` and will be brought along by the respective Connector Runtime executing the Connector.
+- A fat JAR containing all dependencies, potentially shaded to avoid classpath conflicts. This will not include the SDK artifacts since those are in scope `provided` and will be brought along by the respective Connector Runtime executing the Connector.
 
 ### Shading dependencies
 
@@ -82,19 +82,16 @@ mvn clean verify
 
 ### Test with local runtime
 
-Use the [Camunda Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles) to run your function as a local Java application.
+In order to test your connector, you will need
 
-In your IDE you can also simply navigate to the `LocalContainerRuntime` class in test scope and run it via your IDE.
-If necessary, you can adjust `application.properties` in test scope.
+- [Desktop Modeler](https://camunda.com/download/modeler/) or [Web Modeler](https://camunda.com/download/modeler/)
+- Docker
 
 ## Element Template
 
 The element template for this sample connector is generated automatically based on the connector
 input class using the [Element Template Generator](https://github.com/camunda/connectors/tree/main/element-template-generator/core).
-The generation is embedded in the Maven build and can be triggered by running `mvn clean package`.
 
-It is not mandatory to generate the element template for your connector and you can also create it manually.
-However, the generator provides a convenient way to create the template and keep it in sync with the connector input class
-and empowers you to prototype and iterate quickly.
+The generation is embedded in the Maven build and can be triggered by running `mvn clean package`.
 
 The generated element template can be found in [element-templates/template-connector.json](./element-templates/template-connector.json).
