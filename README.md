@@ -10,13 +10,10 @@
 > * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (
     rename)
 >
-> ...and delete this hint.
 >
-> Read more
+> about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
 >
-about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
->
-> Check out the [Connectors SDK](https://github.com/camunda/connector-sdk)
+> Check out the [Connectors SDK](https://github.com/camunda/connectors)
 
 # Connector Template
 
@@ -45,7 +42,7 @@ This will create the following artifacts:
 
 You can use the `maven-shade-plugin` defined in the [Maven configuration](./pom.xml) to relocate common dependencies
 that are used in other Connectors and
-the [Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles).
+the [Connector Runtime](https://github.com/camunda/connectors).
 This helps to avoid classpath conflicts when the Connector is executed.
 
 Use the `relocations` configuration in the Maven Shade plugin to define the dependencies that should be shaded.
@@ -102,9 +99,9 @@ To ensure the seamless functionality of your custom Camunda connector, please fo
 
 1. Clone the Camunda Platform repository from GitHub:
 
-   ```shell
-   git clone https://github.com/camunda/camunda-platform.git
-   ```
+```shell
+git clone https://github.com/camunda/camunda-platform.git
+```
 
 Navigate to the cloned directory and open docker-compose-core.yaml with your preferred text editor.
 
@@ -113,9 +110,9 @@ locally.
 
 Initiate the Camunda suite with the following Docker command:
 
-    ```shell
-    docker compose -f docker-compose-core.yaml up
-    ```
+```shell
+docker compose -f docker-compose-core.yaml up
+```
 
 ### Configuring Camunda Modeler
 
@@ -126,17 +123,12 @@ Initiate the Camunda suite with the following Docker command:
 ### Launching Your Connector
 
 1. Run `io.camunda.example.LocalConnectorRuntime` to start your connector.
-2. Create and initiate a process that utilizes your newly created connector within the Camunda
-   Modeler. ![Connector in Camunda Modeler](img/img.png)
+2. Create and initiate a process that utilizes your newly created connector within the Camunda Modeler. ![Connector in Camunda Modeler](img/img.png)
 3. Verify that the process is running smoothly by accessing Camunda Operate at [localhost:8081](http://localhost:8081).
 
 Follow these instructions to test and use your custom Camunda connector effectively.
 
 ### Test with SaaS
-
-#### Prerequisites:
-
-None required.
 
 #### Setting Up the Environment:
 
