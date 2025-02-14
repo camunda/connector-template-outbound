@@ -3,6 +3,9 @@
   "name" : "Template connector",
   "id" : "io.camunda.connector.Template.v1",
   "description" : "Describe this connector",
+  "metadata" : {
+    "keywords" : [ ]
+  },
   "documentationRef" : "https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/available-connectors-overview/",
   "version" : 1,
   "category" : {
@@ -129,7 +132,6 @@
     "label" : "Retry backoff",
     "description" : "ISO-8601 duration to wait between retries",
     "value" : "PT0S",
-    "feel" : "optional",
     "group" : "retries",
     "binding" : {
       "key" : "retryBackoff",

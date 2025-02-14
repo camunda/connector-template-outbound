@@ -5,15 +5,15 @@
 > * [README](./README.md) (title, description)
 > * [Element Template](./element-templates/template-connector.json)
 > * [POM](./pom.xml) (artifact name, id, description)
-> * [Connector Function](src/main/java/io/camunda/example/MyConnectorFunction.java) (rename, implement, update `OutboundConnector` annotation)
-> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (rename)
+> * [Connector Function](src/main/java/io/camunda/example/MyConnectorFunction.java) (rename, implement, update
+    `OutboundConnector` annotation)
+> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (
+    rename)
 >
-> ...and delete this hint.
-> 
-> Read more about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
 >
-> Check out the [Connectors SDK](https://github.com/camunda/connector-sdk)
-
+> about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
+>
+> Check out the [Connectors SDK](https://github.com/camunda/connectors)
 
 # Connector Template
 
@@ -34,16 +34,19 @@ mvn clean package
 This will create the following artifacts:
 
 - A thin JAR without dependencies.
-- An fat JAR containing all dependencies, potentially shaded to avoid classpath conflicts. This will not include the SDK artifacts since those are in scope `provided` and will be brought along by the respective Connector Runtime executing the Connector.
+- A fat JAR containing all dependencies, potentially shaded to avoid classpath conflicts. This will not include the SDK
+  artifacts since those are in scope `provided` and will be brought along by the respective Connector Runtime executing
+  the Connector.
 
 ### Shading dependencies
 
 You can use the `maven-shade-plugin` defined in the [Maven configuration](./pom.xml) to relocate common dependencies
-that are used in other Connectors and the [Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles).
-This helps to avoid classpath conflicts when the Connector is executed. 
+that are used in other Connectors and
+the [Connector Runtime](https://github.com/camunda/connectors).
+This helps to avoid classpath conflicts when the Connector is executed.
 
 Use the `relocations` configuration in the Maven Shade plugin to define the dependencies that should be shaded.
-The [Maven Shade documentation](https://maven.apache.org/plugins/maven-shade-plugin/examples/class-relocation.html) 
+The [Maven Shade documentation](https://maven.apache.org/plugins/maven-shade-plugin/examples/class-relocation.html)
 provides more details on relocations.
 
 ## API
@@ -60,8 +63,8 @@ provides more details on relocations.
 
 ```json
 {
-  "result": {
-    "myProperty": "Message received: ..."
+  "result":{
+    "myProperty":"Message received: ..."
   }
 }
 ```
@@ -82,19 +85,77 @@ mvn clean verify
 
 ### Test with local runtime
 
-Use the [Camunda Connector Runtime](https://github.com/camunda-community-hub/spring-zeebe/tree/master/connector-runtime#building-connector-runtime-bundles) to run your function as a local Java application.
+To ensure the seamless functionality of your custom Camunda connector, please follow the steps below:
 
-In your IDE you can also simply navigate to the `LocalContainerRuntime` class in test scope and run it via your IDE.
-If necessary, you can adjust `application.properties` in test scope.
+#### Prerequisites:
+
+1. Camunda Modeler, which is available in two variants:
+    - [Desktop Modeler](https://camunda.com/download/modeler/) for a local installation.
+    - [Web Modeler](https://camunda.com/download/modeler/) for an online experience.
+
+2. [Docker](https://www.docker.com/products/docker-desktop), which is required to run the Camunda platform.
+
+#### Setting Up the Environment:
+
+1. Clone the Camunda Platform repository from GitHub:
+
+```shell
+git clone https://github.com/camunda/camunda-platform.git
+```
+
+Navigate to the cloned directory and open docker-compose-core.yaml with your preferred text editor.
+
+Locate the connector image section and comment it out using the # symbol, as you will be executing your connector
+locally.
+
+Initiate the Camunda suite with the following Docker command:
+
+```shell
+docker compose -f docker-compose-core.yaml up
+```
+
+### Configuring Camunda Modeler
+
+1. Install the Camunda Modeler if not already done.
+2. Add the `element-templates/template-connector.json` to your Modeler configuration as per
+   the [Element Templates documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/configuring-templates/).
+
+### Launching Your Connector
+
+1. Run `io.camunda.example.LocalConnectorRuntime` to start your connector.
+2. Create and initiate a process that utilizes your newly created connector within the Camunda Modeler. ![Connector in Camunda Modeler](img/img.png)
+3. Verify that the process is running smoothly by accessing Camunda Operate at [localhost:8081](http://localhost:8081).
+
+Follow these instructions to test and use your custom Camunda connector effectively.
+
+### Test with SaaS
+
+#### Setting Up the Environment:
+
+1. Navigate to Camunda [SaaS](https://console.camunda.io).
+2. Create a cluster using the latest version available.
+3. Select your cluster, then go to the `API` section and click `Create new Client`.
+4. Ensure the `zeebe` checkbox is selected, then click `Create`.
+5. Copy the configuration details displayed under the `Spring Boot` tab.
+6. Paste the copied configuration into your `application.properties` file within your project.
+
+### Launching Your Connector
+
+1. Start your connector by executing `io.camunda.example.LocalConnectorRuntime` in your development environment.
+2. Access the Web Modeler and create a new project.
+3. Click on `Create new`, then select `Upload files`. Upload the connector template from the repository you have.
+4. In the same folder, create a new BPMN diagram.
+5. Design and start a process that incorporates your new connector.
+
+By adhering to these steps, you can validate the integration of your custom Camunda connector with the SaaS environment.
 
 ## Element Template
 
 The element template for this sample connector is generated automatically based on the connector
-input class using the [Element Template Generator](https://github.com/camunda/connectors/tree/main/element-template-generator/core).
+input class using
+the [Element Template Generator](https://github.com/camunda/connectors/tree/main/element-template-generator/core).
+
 The generation is embedded in the Maven build and can be triggered by running `mvn clean package`.
 
-It is not mandatory to generate the element template for your connector and you can also create it manually.
-However, the generator provides a convenient way to create the template and keep it in sync with the connector input class
-and empowers you to prototype and iterate quickly.
-
-The generated element template can be found in [element-templates/template-connector.json](./element-templates/template-connector.json).
+The generated element template can be found
+in [element-templates/template-connector.json](./element-templates/template-connector.json).
