@@ -14,10 +14,10 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <version.connectors>8.7.0-alpha4</version.connectors>
+        <version.connectors>8.7.0</version.connectors>
         <version.assertj>3.25.3</version.assertj>
-        <version.junit-jupiter>5.12.1</version.junit-jupiter>
-        <version.mockito>5.11.0</version.mockito>
+        <version.junit-jupiter>5.12.2</version.junit-jupiter>
+        <version.mockito>5.16.1</version.mockito>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
