@@ -17,7 +17,7 @@
         <version.connectors>8.7.8</version.connectors>
         <version.assertj>3.27.3</version.assertj>
         <version.junit-jupiter>5.12.1</version.junit-jupiter>
-        <version.mockito>5.16.1</version.mockito>
+        <version.mockito>5.19.0</version.mockito>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
