@@ -5,7 +5,7 @@
 > * [README](./README.md) (title, description)
 > * [Element Template](./element-templates/template-connector.json)
 > * [POM](./pom.xml) (artifact name, id, description)
-> * [Connector Function](src/main/java/io/camunda/example/MyConnectorFunction.java) (rename, implement, update
+> * [Connector Function](src/main/java/io/camunda/examplev1/MyConnectorFunction.java) (rename, implement, update
     `OutboundConnector` annotation)
 > * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (
     rename)
@@ -122,7 +122,7 @@ docker compose -f docker-compose-core.yaml up
 
 ### Launching Your Connector
 
-1. Run `io.camunda.example.LocalConnectorRuntime` to start your connector.
+1. Run `io.camunda.examplev1.LocalConnectorRuntime` to start your connector.
 2. Create and initiate a process that utilizes your newly created connector within the Camunda Modeler. ![Connector in Camunda Modeler](img/img.png)
 3. Verify that the process is running smoothly by accessing Camunda Operate at [localhost:8081](http://localhost:8081).
 
@@ -141,7 +141,7 @@ Follow these instructions to test and use your custom Camunda connector effectiv
 
 ### Launching Your Connector
 
-1. Start your connector by executing `io.camunda.example.LocalConnectorRuntime` in your development environment.
+1. Start your connector by executing `io.camunda.examplev1.LocalConnectorRuntime` in your development environment.
 2. Access the Web Modeler and create a new project.
 3. Click on `Create new`, then select `Upload files`. Upload the connector template from the repository you have.
 4. In the same folder, create a new BPMN diagram.

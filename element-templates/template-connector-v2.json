@@ -1,7 +1,7 @@
 {
   "$schema" : "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-  "name" : "Template connector",
-  "id" : "io.camunda.connector.Template.v1",
+  "name" : "Template connector v2",
+  "id" : "io.camunda.connector.Template.v2",
   "description" : "Describe this connector",
   "metadata" : {
     "keywords" : [ ]
@@ -17,11 +17,8 @@
     "value" : "bpmn:ServiceTask"
   },
   "groups" : [ {
-    "id" : "authentication",
-    "label" : "Authentication"
-  }, {
-    "id" : "compose",
-    "label" : "Compose"
+    "id" : "operation",
+    "label" : "Operation"
   }, {
     "id" : "connector",
     "label" : "Connector"
@@ -36,14 +33,46 @@
     "label" : "Retries"
   } ],
   "properties" : [ {
-    "value" : "io.camunda:template:1",
+    "value" : "io.camunda:template:2",
     "binding" : {
       "property" : "type",
       "type" : "zeebe:taskDefinition"
     },
     "type" : "Hidden"
   }, {
-    "id" : "authentication.user",
+    "id" : "operation",
+    "label" : "Operation",
+    "description" : "The operation to execute",
+    "value" : "sendBackMessage",
+    "group" : "operation",
+    "binding" : {
+      "key" : "operation",
+      "type" : "zeebe:taskHeader"
+    },
+    "type" : "Hidden"
+  }, {
+    "id" : "sendBackMessage:message",
+    "label" : "Message",
+    "optional" : false,
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "feel" : "optional",
+    "group" : "operation",
+    "binding" : {
+      "name" : "message",
+      "type" : "zeebe:input"
+    },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "sendBackMessage",
+        "type" : "simple"
+      } ]
+    },
+    "type" : "Text"
+  }, {
+    "id" : "sendBackMessage:authentication.user",
     "label" : "Username",
     "description" : "The username for authentication",
     "optional" : false,
@@ -51,14 +80,21 @@
       "notEmpty" : true
     },
     "feel" : "optional",
-    "group" : "authentication",
+    "group" : "operation",
     "binding" : {
       "name" : "authentication.user",
       "type" : "zeebe:input"
     },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "sendBackMessage",
+        "type" : "simple"
+      } ]
+    },
     "type" : "String"
   }, {
-    "id" : "authentication.token",
+    "id" : "sendBackMessage:authentication.token",
     "label" : "Token",
     "description" : "The token for authentication",
     "optional" : false,
@@ -66,26 +102,19 @@
       "notEmpty" : true
     },
     "feel" : "optional",
-    "group" : "authentication",
+    "group" : "operation",
     "binding" : {
       "name" : "authentication.token",
       "type" : "zeebe:input"
     },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "sendBackMessage",
+        "type" : "simple"
+      } ]
+    },
     "type" : "String"
-  }, {
-    "id" : "message",
-    "label" : "Message",
-    "optional" : false,
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "feel" : "optional",
-    "group" : "compose",
-    "binding" : {
-      "name" : "message",
-      "type" : "zeebe:input"
-    },
-    "type" : "Text"
   }, {
     "id" : "version",
     "label" : "Version",
@@ -101,7 +130,7 @@
     "id" : "id",
     "label" : "ID",
     "description" : "ID of the element template",
-    "value" : "io.camunda.connector.Template.v1",
+    "value" : "io.camunda.connector.Template.v2",
     "group" : "connector",
     "binding" : {
       "key" : "elementTemplateId",

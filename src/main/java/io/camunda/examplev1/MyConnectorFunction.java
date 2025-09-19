@@ -1,12 +1,12 @@
-package io.camunda.example;
+package io.camunda.examplev1;
 
 import io.camunda.connector.api.annotation.OutboundConnector;
 import io.camunda.connector.api.error.ConnectorException;
 import io.camunda.connector.api.outbound.OutboundConnectorContext;
 import io.camunda.connector.api.outbound.OutboundConnectorFunction;
 import io.camunda.connector.generator.java.annotation.ElementTemplate;
-import io.camunda.example.dto.MyConnectorRequest;
-import io.camunda.example.dto.MyConnectorResult;
+import io.camunda.dto.MyConnectorRequest;
+import io.camunda.dto.MyConnectorResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
