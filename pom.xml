@@ -3,13 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>connector-template</name>
-    <description>Camunda Connector Template</description>
+    <name>connector-process-instancy</name>
+    <description>Camunda Process Instancy</description>
     <groupId>io.camunda.connector</groupId>
-    <artifactId>connector-template</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>connector-process-instancy</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-
+	
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,19 +30,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Element template generator annotations (compile-time only) -->
         <dependency>
             <groupId>io.camunda.connector</groupId>
             <artifactId>element-template-generator-core</artifactId>
             <version>${version.connectors}</version>
-        </dependency>
-
-        <!-- test dependencies -->
-        <dependency>
-            <groupId>io.camunda.connector</groupId>
-            <artifactId>connector-test</artifactId>
-            <version>${version.connectors}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -66,15 +56,13 @@
             <version>${version.assertj}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- for testing connectors locally in bundle with runtime -->
+        
         <dependency>
-            <groupId>io.camunda.connector</groupId>
-            <artifactId>spring-boot-starter-camunda-connectors</artifactId>
-            <version>${version.connectors}</version>
-            <scope>test</scope>
-        </dependency>
-
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20240303</version>
+		</dependency>
+        
     </dependencies>
 
     <build>
@@ -90,32 +78,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.camunda.connector</groupId>
-                <artifactId>element-template-generator-maven-plugin</artifactId>
-                <version>${version.connectors}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>generate-templates</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <connectors>
-                        <connector>
-                            <connectorClass>io.camunda.example.MyConnectorFunction</connectorClass>
-                            <files>
-                                <file>
-                                    <templateId>io.camunda.connector.Template.v1</templateId>
-                                    <templateFileName>template-connector.json</templateFileName>
-                                </file>
-                            </files>
-                        </connector>
-                    </connectors>
-                </configuration>
             </plugin>
         </plugins>
     </build>

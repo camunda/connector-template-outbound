@@ -1,145 +1,142 @@
 {
-  "$schema" : "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-  "name" : "Template connector",
-  "id" : "io.camunda.connector.Template.v1",
-  "description" : "Describe this connector",
-  "metadata" : {
-    "keywords" : [ ]
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Task Info",
+  "id": "4d0fa736-27ec-4072-bc26-3a25e7797984",
+  "version": 1760081259688,
+  "description": "Get task metadata via connector",
+  "icon": {
+    "contents": "data:image/png;base64,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"
   },
-  "documentationRef" : "https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/available-connectors-overview/",
-  "version" : 1,
-  "category" : {
-    "id" : "connectors",
-    "name" : "Connectors"
+  "appliesTo": [
+    "bpmn:Task"
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
   },
-  "appliesTo" : [ "bpmn:Task" ],
-  "elementType" : {
-    "value" : "bpmn:ServiceTask"
-  },
-  "groups" : [ {
-    "id" : "authentication",
-    "label" : "Authentication"
-  }, {
-    "id" : "compose",
-    "label" : "Compose"
-  }, {
-    "id" : "output",
-    "label" : "Output mapping"
-  }, {
-    "id" : "error",
-    "label" : "Error handling"
-  }, {
-    "id" : "retries",
-    "label" : "Retries"
-  } ],
-  "properties" : [ {
-    "value" : "io.camunda:template:1",
-    "binding" : {
-      "property" : "type",
-      "type" : "zeebe:taskDefinition"
-    },
-    "type" : "Hidden"
-  }, {
-    "id" : "authentication.user",
-    "label" : "Username",
-    "description" : "The username for authentication",
-    "optional" : false,
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "feel" : "optional",
-    "group" : "authentication",
-    "binding" : {
-      "name" : "authentication.user",
-      "type" : "zeebe:input"
-    },
-    "type" : "String"
-  }, {
-    "id" : "authentication.token",
-    "label" : "Token",
-    "description" : "The token for authentication",
-    "optional" : false,
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "feel" : "optional",
-    "group" : "authentication",
-    "binding" : {
-      "name" : "authentication.token",
-      "type" : "zeebe:input"
-    },
-    "type" : "String"
-  }, {
-    "id" : "message",
-    "label" : "Message",
-    "optional" : false,
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "feel" : "optional",
-    "group" : "compose",
-    "binding" : {
-      "name" : "message",
-      "type" : "zeebe:input"
-    },
-    "type" : "Text"
-  }, {
-    "id" : "resultVariable",
-    "label" : "Result variable",
-    "description" : "Name of variable to store the response in",
-    "group" : "output",
-    "binding" : {
-      "key" : "resultVariable",
-      "type" : "zeebe:taskHeader"
-    },
-    "type" : "String"
-  }, {
-    "id" : "resultExpression",
-    "label" : "Result expression",
-    "description" : "Expression to map the response into process variables",
-    "feel" : "required",
-    "group" : "output",
-    "binding" : {
-      "key" : "resultExpression",
-      "type" : "zeebe:taskHeader"
-    },
-    "type" : "Text"
-  }, {
-    "id" : "errorExpression",
-    "label" : "Error expression",
-    "description" : "Expression to handle errors. Details in the <a href=\"https://docs.camunda.io/docs/components/connectors/use-connectors/\" target=\"_blank\">documentation</a>.",
-    "feel" : "required",
-    "group" : "error",
-    "binding" : {
-      "key" : "errorExpression",
-      "type" : "zeebe:taskHeader"
-    },
-    "type" : "Text"
-  }, {
-    "id" : "retryCount",
-    "label" : "Retries",
-    "description" : "Number of retries",
-    "value" : "3",
-    "feel" : "optional",
-    "group" : "retries",
-    "binding" : {
-      "property" : "retries",
-      "type" : "zeebe:taskDefinition"
-    },
-    "type" : "String"
-  }, {
-    "id" : "retryBackoff",
-    "label" : "Retry backoff",
-    "description" : "ISO-8601 duration to wait between retries",
-    "value" : "PT0S",
-    "group" : "retries",
-    "binding" : {
-      "key" : "retryBackoff",
-      "type" : "zeebe:taskHeader"
-    },
-    "type" : "String"
-  } ],
-  "icon" : {
-    "contents" : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTgiIHdpZHRoPSIxOCIgdmlld0JveD0iMCAwIDEwIDEwIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHRpdGxlPlNsYWNrPC90aXRsZT48ZyBmaWxsPSJub25lIj48cGF0aCBkPSJNMCwwIEwwLDEwIEwxMCwxMCBMMTAsMCB6IiBmaWxsPSIjZWNiMTJmIi8+PC9nPjwvc3ZnPg=="
-  }
+  "properties": [
+	  {
+	    "label": "Tasklist Address",
+	    "description": "IP of Tasklist",
+	    "type": "String",
+	    "feel": "optional",
+	    "binding": {
+	      "type": "zeebe:input",
+	      "name": "tasklistAddress"
+	    },
+	    "constraints": {
+	      "notEmpty": true
+	    }
+	  },
+	  {
+		  "label": "Operate Address",
+		  "description": "IP of Operate",
+		  "type": "String",
+		  "feel": "optional",
+		  "binding": {
+		    "type": "zeebe:input",
+		    "name": "operateAddress"
+		  },
+		  "constraints": {
+		    "notEmpty": true
+		  }
+	  },
+	  {
+	    "label": "Keycloak Address",
+	    "description": "IP of Keycloak",
+	    "type": "String",
+	    "feel": "optional",
+	    "binding": {
+	      "type": "zeebe:input",
+	      "name": "keycloakAddress"
+	    },
+	    "constraints": {
+	      "notEmpty": true
+	    }
+	  },
+	  {
+		  "label": "ClientSecret",
+		  "description": "clientSecret of the client",
+		  "type": "String",
+		  "feel": "optional",
+		  "binding": {
+		    "type": "zeebe:input",
+		    "name": "clientSecret"
+		  },
+		  "constraints": {
+		    "notEmpty": true
+		  }
+	  },
+	  {
+		  "label": "ClientId",
+		  "description": "ClientId in Keycloak",
+		  "type": "String",
+		  "feel": "optional",
+		  "binding": {
+		    "type": "zeebe:input",
+		    "name": "clientId"
+		  },
+		  "constraints": {
+		    "notEmpty": true
+		  }
+	  },
+	  {
+	    "label": "Process Instance",
+	    "description": "The instance number of the process",
+	    "type": "Number",
+	    "feel": "optional",
+	    "binding": {
+	      "type": "zeebe:input",
+	      "name": "processInstance"
+	    },
+	    "constraints": {
+	      "notEmpty": true
+	    }
+	  },
+	  {
+	    "label": "State",
+	    "description": "Select the state",
+	    "type": "Dropdown",
+	    "value": "CREATED",
+	    "choices": [
+		  { "name": "CREATED", "value": "CREATED" },
+	      { "name": "COMPLETE", "value": "COMPLETE" },
+	      { "name": "CANCELED", "value": "CANCELED" }
+	    ],
+	    "binding": {
+	      "type": "zeebe:input",
+	      "name": "state"
+	    },
+	    "constraints": {
+	      "notEmpty": true
+	    }
+	  },
+	  {
+	    "label": "Result Variable",
+	    "description": "Variable to store the result",
+	    "type": "String",
+	    "value": "taskInfoResult",
+	    "binding": {
+	      "type": "zeebe:taskHeader",
+	      "key": "resultVariable"
+	    }
+	  },
+	  {
+	    "label": "Retries",
+	    "description": "Number of attempts in case of failure",
+	    "type": "String",
+	    "value": "3",
+	    "binding": {
+	      "type": "zeebe:taskDefinition",
+	      "property": "retries"
+	    }
+	  },
+        {
+	      "type": "Hidden",
+	      "value": "io.camunda:task-info:1",
+	      "binding": {
+	        "type": "zeebe:taskDefinition",
+	        "property": "type"
+        }
+      }
+  ]
 }
