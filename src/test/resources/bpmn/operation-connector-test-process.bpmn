@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1d59y2v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.36.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="operation-connector-test-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1fhp9db</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="MyConnector" name="MyConnector" zeebe:modelerTemplate="io.camunda.connector.Template.v2" zeebe:modelerTemplateVersion="1" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTgiIHdpZHRoPSIxOCIgdmlld0JveD0iMCAwIDEwIDEwIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHRpdGxlPlNsYWNrPC90aXRsZT48ZyBmaWxsPSJub25lIj48cGF0aCBkPSJNMCwwIEwwLDEwIEwxMCwxMCBMMTAsMCB6IiBmaWxsPSIjZWNiMTJmIi8+PC9nPjwvc3ZnPg==">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:template:2" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="operation" value="sendBackMessage" />
+          <zeebe:header key="elementTemplateVersion" value="1" />
+          <zeebe:header key="elementTemplateId" value="io.camunda.connector.Template.v2" />
+          <zeebe:header key="resultVariable" value="result" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+        <zeebe:ioMapping>
+          <zeebe:input source="Hello Camunda" target="message" />
+          <zeebe:input source="zeebe" target="authentication.user" />
+          <zeebe:input source="zeecret" target="authentication.token" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1fhp9db</bpmn:incoming>
+      <bpmn:outgoing>Flow_0a8tqug</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1fhp9db" sourceRef="StartEvent_1" targetRef="MyConnector" />
+    <bpmn:endEvent id="Event_1yq4usa">
+      <bpmn:incoming>Flow_0a8tqug</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0a8tqug" sourceRef="MyConnector" targetRef="Event_1yq4usa" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0b571my">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kya9tw_di" bpmnElement="MyConnector">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1yq4usa_di" bpmnElement="Event_1yq4usa">
+        <dc:Bounds x="422" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1fhp9db_di" bpmnElement="Flow_1fhp9db">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a8tqug_di" bpmnElement="Flow_0a8tqug">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="422" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
