@@ -5,7 +5,7 @@
 > * [README](./README.md) (title, description)
 > * [Element Template](./element-templates/template-connector.json)
 > * [POM](./pom.xml) (artifact name, id, description)
-> * [Connector Function](src/main/java/io/camunda/examplev1/MyConnectorFunction.java) (rename, implement, update
+> * [Connector Function](src/main/java/io/camunda/example/classic/MyConnectorFunction.java) (rename, implement, update
     `OutboundConnector` annotation)
 > * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (
     rename)
@@ -19,9 +19,26 @@
 
 Camunda Outbound Connector Template
 
-Emulates a simple outbound connector function that takes a message and echoes it back.
+This template project illustrates two different approaches to implement a Camunda Outbound Connector.
+Both implementations are supported by the Connector SDK and can be used as a foundation for building your own
+Connector. You can choose the approach that best fits your needs:
 
-The function will throw an exception if your message starts with `fail`. This can be used to test error handling.
+## Classic API - `OutboundConnectorFunction`
+
+Example implementation: `io.camunda.example.classic.MyConnectorFunction`.
+
+This approach utilizes the traditional `OutboundConnectorFunction` interface from the Connector SDK.
+
+## Operations API - `OutboundConnectorProvider`
+
+Example implementation: `io.camunda.example.operations.MyConnectorProvider`.
+
+This approach leverages the newer Operations API by implementing the `OutboundConnectorProvider` interface.
+The benefit of this approach is that it allows you to define multiple operations within a single Connector
+without the need to explicitly handle the routing of operations within a connector yourself.
+
+The element template generator tool also supports both approaches and will generate the appropriate
+element templates based on the implementation you choose.
 
 ## Build
 
@@ -44,6 +61,13 @@ You can use the `maven-shade-plugin` defined in the [Maven configuration](./pom.
 that are used in other Connectors and
 the [Connector Runtime](https://github.com/camunda/connectors).
 This helps to avoid classpath conflicts when the Connector is executed.
+
+
+For example, without shading, you might encounter errors like:
+```
+java.lang.NoSuchMethodError: com.fasterxml.jackson.databind.ObjectMapper.setserializationInclusion(Lcom/fasterxml/jackson/annotation/JsonInclude$Include;)Lcom/fasterxml/jackson/databind/ObjectMapper;
+```
+This occurs when your connector and the runtime use different versions of the same library (e.g., Jackson).
 
 Use the `relocations` configuration in the Maven Shade plugin to define the dependencies that should be shaded.
 The [Maven Shade documentation](https://maven.apache.org/plugins/maven-shade-plugin/examples/class-relocation.html)
@@ -83,54 +107,62 @@ Run unit tests
 mvn clean verify
 ```
 
-### Test with local runtime
+## Testing
+### Unit and Integration Tests
 
-To ensure the seamless functionality of your custom Camunda connector, please follow the steps below:
+You can run the unit and integration tests by executing the following Maven command:
+```bash
+mvn clean verify
+```
 
-#### Prerequisites:
+### Local environment
 
+#### Prerequisites
+You will need the following tools installed on your machine:
 1. Camunda Modeler, which is available in two variants:
     - [Desktop Modeler](https://camunda.com/download/modeler/) for a local installation.
-    - [Web Modeler](https://camunda.com/download/modeler/) for an online experience.
+    - [Web Modeler](https://modeler.camunda.io/) for an online experience.
 
 2. [Docker](https://www.docker.com/products/docker-desktop), which is required to run the Camunda platform.
 
-#### Setting Up the Environment:
+#### Setting Up the Camunda platform
 
-1. Clone the Camunda Platform repository from GitHub:
+The Connectors Runtime requires a running Camunda platform to interact with. To set up a local Camunda environment, follow these steps:
 
-```shell
-git clone https://github.com/camunda/camunda-platform.git
-```
-
-Navigate to the cloned directory and open docker-compose-core.yaml with your preferred text editor.
-
-Locate the connector image section and comment it out using the # symbol, as you will be executing your connector
-locally.
-
-Initiate the Camunda suite with the following Docker command:
+1. Clone the [Camunda distributions repository](https://github.com/camunda/camunda-distributions) from GitHub and navigate to the Camunda 8.8 docker-compose directory:
 
 ```shell
-docker compose -f docker-compose-core.yaml up
+git clone git@github.com:camunda/camunda-distributions.git
+cd cd docker-compose/versions/camunda-8.8
 ```
 
-### Configuring Camunda Modeler
+**Note:** This template is compatible with Camunda 8.8. Using other versions may lead to compatibility issues.
 
-1. Install the Camunda Modeler if not already done.
-2. Add the `element-templates/template-connector.json` to your Modeler configuration as per
-   the [Element Templates documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/configuring-templates/).
+Either comment out the connectors service, or use the `--scale` flag to exclude it:
 
-### Launching Your Connector
+```shell
+docker compose -f docker-compose-core.yaml up --scale connectors=0
+```
 
-1. Run `io.camunda.examplev1.LocalConnectorRuntime` to start your connector.
-2. Create and initiate a process that utilizes your newly created connector within the Camunda Modeler. ![Connector in Camunda Modeler](img/img.png)
-3. Verify that the process is running smoothly by accessing Camunda Operate at [localhost:8081](http://localhost:8081).
+#### Configure the Desktop Modeler and Use Your Connector
 
-Follow these instructions to test and use your custom Camunda connector effectively.
+Add the `element-templates/template-connector-message-start-event.json` to your Modeler configuration as per
+the [Element Templates documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/configuring-templates/).
 
-### Test with SaaS
+#### Using Your Connector
+Then, to use your connector in a local Camunda environment, follow these steps:
 
-#### Setting Up the Environment:
+1. Run `io.camunda.connector.inbound.LocalConnectorRuntime` to start your connector.
+2. Open the Camunda Desktop Modeler and create a new BPMN diagram.
+3. Design a process that incorporates your newly created connector.
+4. Deploy the process to your local Camunda platform.
+5. Verify that the process is running smoothly by accessing Camunda Operate at [localhost:8088/operate](http://localhost:8088/operate). Username and password are both `demo`.
+
+### SaaS environment
+
+#### Creating an API Client
+
+The Connectors Runtime (LocalConnectorRuntime) requires connection details to interact with your Camunda SaaS cluster. To set this up, follow these steps:
 
 1. Navigate to Camunda [SaaS](https://console.camunda.io).
 2. Create a cluster using the latest version available.
@@ -139,15 +171,15 @@ Follow these instructions to test and use your custom Camunda connector effectiv
 5. Copy the configuration details displayed under the `Spring Boot` tab.
 6. Paste the copied configuration into your `application.properties` file within your project.
 
-### Launching Your Connector
+#### Using Your Connector
 
-1. Start your connector by executing `io.camunda.examplev1.LocalConnectorRuntime` in your development environment.
+1. Start your connector by executing `io.camunda.connector.inbound.LocalConnectorRuntime` in your development
+   environment.
 2. Access the Web Modeler and create a new project.
 3. Click on `Create new`, then select `Upload files`. Upload the connector template from the repository you have.
-4. In the same folder, create a new BPMN diagram.
-5. Design and start a process that incorporates your new connector.
-
-By adhering to these steps, you can validate the integration of your custom Camunda connector with the SaaS environment.
+4. After uploading, **publish the connector template** by clicking the Publish button.
+5. In the same folder, create a new BPMN diagram.
+6. Design and start a process that incorporates your new connector.
 
 ## Element Template
 
