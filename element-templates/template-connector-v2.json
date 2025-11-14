@@ -43,13 +43,52 @@
     "id" : "operation",
     "label" : "Operation",
     "description" : "The operation to execute",
-    "value" : "sendBackMessage",
+    "value" : "addTwoNumbers",
     "group" : "operation",
     "binding" : {
       "key" : "operation",
       "type" : "zeebe:taskHeader"
     },
-    "type" : "Hidden"
+    "type" : "Dropdown",
+    "choices" : [ {
+      "name" : "add two numbers",
+      "value" : "addTwoNumbers"
+    }, {
+      "name" : "send back message",
+      "value" : "sendBackMessage"
+    } ]
+  }, {
+    "id" : "addTwoNumbers:A",
+    "label" : "A",
+    "group" : "operation",
+    "binding" : {
+      "name" : "A",
+      "type" : "zeebe:input"
+    },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "addTwoNumbers",
+        "type" : "simple"
+      } ]
+    },
+    "type" : "Number"
+  }, {
+    "id" : "addTwoNumbers:B",
+    "label" : "B",
+    "group" : "operation",
+    "binding" : {
+      "name" : "B",
+      "type" : "zeebe:input"
+    },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "addTwoNumbers",
+        "type" : "simple"
+      } ]
+    },
+    "type" : "Number"
   }, {
     "id" : "sendBackMessage:message",
     "label" : "Message",

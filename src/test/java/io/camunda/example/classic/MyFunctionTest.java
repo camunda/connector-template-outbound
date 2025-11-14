@@ -1,4 +1,4 @@
-package io.camunda.examplev1;
+package io.camunda.example.classic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

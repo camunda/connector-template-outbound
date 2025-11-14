@@ -1,4 +1,4 @@
-package io.camunda.examplev1;
+package io.camunda.example.classic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
