@@ -25,13 +25,15 @@ Connector. You can choose the approach that best fits your needs:
 
 ## Classic API - `OutboundConnectorFunction`
 
-Example implementation: `io.camunda.example.classic.MyConnectorFunction`.
+Example implementation: [`io.camunda.example.classic.MyConnectorFunction`](src/main/java/io/camunda/example/classic/MyConnectorFunction.java).
 
 This approach utilizes the traditional `OutboundConnectorFunction` interface from the Connector SDK.
 
 ## Operations API - `OutboundConnectorProvider`
 
-Example implementation: `io.camunda.example.operations.MyConnectorProvider`.
+Example implementation: [`io.camunda.example.operations.MyConnectorProvider`](src/main/java/io/camunda/example/operations/MyConnectorProvider.java).
+
+Another example implementation from the main Connectors repository can be found [here](https://github.com/camunda/connectors/blob/23e577ead64c2a6b478b05d2ea3100ca6846e70a/connectors/csv/src/main/java/io/camunda/connector/csv/CsvConnector.java).
 
 This approach leverages the newer Operations API by implementing the `OutboundConnectorProvider` interface.
 The benefit of this approach is that it allows you to define multiple operations within a single Connector
