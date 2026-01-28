@@ -1,1 +1,1 @@
- io.camunda.example.operations.MyConnectorProvider
+ io.camunda.example.MyConnector

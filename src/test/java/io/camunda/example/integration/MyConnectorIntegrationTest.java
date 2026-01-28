@@ -1,4 +1,4 @@
-package io.camunda.example.classic.integration;
+package io.camunda.example.integration;
 
 import io.camunda.client.CamundaClient;
 import io.camunda.process.test.api.CamundaSpringProcessTest;
@@ -12,33 +12,50 @@ import static io.camunda.process.test.api.assertions.ElementSelectors.byName;
 
 @SpringBootTest(
     classes = {TestConnectorRuntimeApplication.class},
-    properties = {
-        "spring.main.allow-bean-definition-overriding=true",
-    },
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CamundaSpringProcessTest
-public class MyConnectorProviderIntegrationTest {
+public class MyConnectorIntegrationTest {
 
   @Autowired
   private CamundaClient client;
 
   @Test
   void testMyConnectorFunctionality() {
-    // given - create a process instance with a correlation variable
+    // given - start a process instance with input variables
+    final var message = "Hello from Test!";
     final var processInstance =
         client
             .newCreateInstanceCommand()
             // processes in resources/bpmn are automatically deployed
             .bpmnProcessId("operation-connector-test-process")
             .latestVersion()
+                .variables(Map.of("message", message))
             .send()
             .join();
 
-    // The connector will automatically generate events and correlate them
-    // Verify the process completes
+    // when - wait for the process to complete
     assertThatProcessInstance(processInstance)
         .hasCompletedElements(byName("MyConnector"))
-        .hasVariable("result", Map.of("myProperty", "Message received: Hello Camunda"))
+        // then - verify the result variable
+        .hasVariable("result", Map.of("myProperty", "Message received: "+message))
         .isCompleted();
+  }
+
+  @Test
+  void testConnectorWithAnExpectedFailure() {
+    // given - start a process instance with input variables
+    final var message = "fail: Hello from Test!";
+    final var processInstance =
+            client
+                    .newCreateInstanceCommand()
+                    // processes in resources/bpmn are automatically deployed
+                    .bpmnProcessId("operation-connector-test-process")
+                    .latestVersion()
+                    .variables(Map.of("message", message))
+                    .send()
+                    .join();
+
+    // then - verify that an incident was created
+    assertThatProcessInstance(processInstance).hasActiveIncidents();
   }
 }
