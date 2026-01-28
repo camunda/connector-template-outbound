@@ -146,7 +146,7 @@ the [Element Templates documentation](https://docs.camunda.io/docs/components/mo
 #### Using Your Connector
 Then, to use your connector in a local Camunda environment, follow these steps:
 
-1. Run `io.camunda.example.LocalConnectorRuntime` to start your connector.
+1. Run the [`io.camunda.example.LocalConnectorRuntime`](src/test/java/io/camunda/example/LocalConnectorRuntime.java) to start your connector for testing purposes.
 2. Open the Camunda Desktop Modeler and create a new BPMN diagram.
 3. Design a process that incorporates your newly created connector.
 4. Deploy the process to your local Camunda platform.
@@ -184,4 +184,4 @@ the [Element Template Generator](https://github.com/camunda/connectors/tree/main
 The generation is embedded in the Maven build and can be triggered by running `mvn clean package`.
 
 The generated element template can be found
-in [element-templates/template-connector.json](./element-templates/template-connector.json).
+in [element-templates/my-connector.json](./element-templates/my-connector.json).

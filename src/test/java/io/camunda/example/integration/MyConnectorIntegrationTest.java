@@ -58,4 +58,22 @@ public class MyConnectorIntegrationTest {
     // then - verify that an incident was created
     assertThatProcessInstance(processInstance).hasActiveIncidents();
   }
+
+  @Test
+  void testConnectorWithAnExpectedRetry() {
+    // given - start a process instance with input variables
+    final var message = "retry: Hello from Test!";
+    final var processInstance =
+            client
+                    .newCreateInstanceCommand()
+                    // processes in resources/bpmn are automatically deployed
+                    .bpmnProcessId("operation-connector-test-process")
+                    .latestVersion()
+                    .variables(Map.of("message", message))
+                    .send()
+                    .join();
+
+    // then - verify that an incident was created
+    assertThatProcessInstance(processInstance).hasActiveIncidents();
+  }
 }
