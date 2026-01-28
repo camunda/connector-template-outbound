@@ -4,6 +4,8 @@ import io.camunda.connector.api.annotation.Operation;
 import io.camunda.connector.api.annotation.OutboundConnector;
 import io.camunda.connector.api.annotation.Variable;
 import io.camunda.connector.api.error.ConnectorException;
+import io.camunda.connector.api.error.ConnectorRetryException;
+import io.camunda.connector.api.error.ConnectorRetryExceptionBuilder;
 import io.camunda.connector.api.outbound.OutboundConnectorProvider;
 import io.camunda.connector.generator.java.annotation.ElementTemplate;
 import io.camunda.example.model.EchoRequest;
@@ -30,7 +32,13 @@ public class MyConnector implements OutboundConnectorProvider {
     LOGGER.info("Executing my connector with request {}", echoRequest);
     String message = echoRequest.message();
     if (message.toLowerCase().startsWith("fail")) {
+      // Simulate a non-retryable error
       throw new ConnectorException("FAIL", "My property started with 'fail', was: " + message);
+    } else if(message.toLowerCase().startsWith("retry")){
+      // Simulate a retryable error
+      throw new ConnectorRetryExceptionBuilder()
+              .errorCode("RETRY")
+              .message("My property started with 'retry', was: " + message).build();
     }
     return new EchoResponse("Message received: " + message);
   }
