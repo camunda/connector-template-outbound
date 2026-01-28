@@ -3,13 +3,12 @@
 > To use this template update the following resources to match the name of your connector:
 >
 > * [README](./README.md) (title, description)
-> * [Element Template](./element-templates/template-connector.json)
 > * [POM](./pom.xml) (artifact name, id, description)
-> * [Connector Function](src/main/java/io/camunda/example/classic/MyConnectorFunction.java) (rename, implement, update
+> * [Connector](src/main/java/io/camunda/example/MyConnector.java) (rename, implement, update
     `OutboundConnector` annotation)
-> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorFunction) (
-    rename)
->
+> * [Service Provider Interface (SPI)](./src/main/resources/META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorProvider) (
+    adapt to your connector class)
+> * [Element Template](./element-templates/my-connector.json) (will be generated during build)
 >
 > about [creating Connectors](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/#creating-a-custom-connector)
 >
@@ -19,28 +18,21 @@
 
 Camunda Outbound Connector Template
 
-This template project illustrates two different approaches to implement a Camunda Outbound Connector.
-Both implementations are supported by the Connector SDK and can be used as a foundation for building your own
-Connector. You can choose the approach that best fits your needs:
-
-## Classic API - `OutboundConnectorFunction`
-
-Example implementation: [`io.camunda.example.classic.MyConnectorFunction`](src/main/java/io/camunda/example/classic/MyConnectorFunction.java).
-
-This approach utilizes the traditional `OutboundConnectorFunction` interface from the Connector SDK.
+This repository provides a template for creating a Camunda Outbound Connector using the Connector SDK. 
+The example is using the annotations-based approach that allows to define multiple operations within a single Connector.
 
 ## Operations API - `OutboundConnectorProvider`
 
-Example implementation: [`io.camunda.example.operations.MyConnectorProvider`](src/main/java/io/camunda/example/operations/MyConnectorProvider.java).
+Example implementation: [`io.camunda.example.MyConnector`](src/main/java/io/camunda/example/MyConnector.java).
 
-Another example implementation from the main Connectors repository can be found [here](https://github.com/camunda/connectors/blob/23e577ead64c2a6b478b05d2ea3100ca6846e70a/connectors/csv/src/main/java/io/camunda/connector/csv/CsvConnector.java).
+This example leverages the `@Operation` annotation to define multiple operations within a single Connector class. 
+The example defines two operations - `echo` and `addTwoNumbers` - each represented by a method annotated with `@Operation`.
+Each operation method accepts an input parameter annotated with `@Variable` (or `@Header`) and returns an output object.
 
-This approach leverages the newer Operations API by implementing the `OutboundConnectorProvider` interface.
-The benefit of this approach is that it allows you to define multiple operations within a single Connector
-without the need to explicitly handle the routing of operations within a connector yourself.
+The runtime uses the `OutboundConnectorProvider` interface to discover and instantiate the Connector. If you rename your
+Connector class, make sure to update the corresponding entry in the `META-INF/services/io.camunda.connector.api.outbound.OutboundConnectorProvider` file.
 
-The element template generator tool also supports both approaches and will generate the appropriate
-element templates based on the implementation you choose.
+Another example implementation for an annotations-based Connector is the [CSV Connector](https://github.com/camunda/connectors/blob/main/connectors/csv/src/main/java/io/camunda/connector/csv/CsvConnector.java).
 
 ## Build
 
@@ -79,11 +71,11 @@ provides more details on relocations.
 
 ### Input
 
-| Name     | Description      | Example           | Notes                                                                      |
-|----------|------------------|-------------------|----------------------------------------------------------------------------|
-| username | Mock username    | `alice`           | Has no effect on the function call outcome.                                |
-| token    | Mock token value | `my-secret-token` | Has no effect on the function call outcome.                                |
-| message  | Mock message     | `Hello World`     | Echoed back in the output. If starts with 'fail', an error will be thrown. |
+| Name    | Description      | Example           | Notes                                                                      |
+|---------|------------------|-------------------|----------------------------------------------------------------------------|
+| user    | Mock username    | `alice`           | Has no effect on the function call outcome.                                |
+| token   | Mock token value | `my-secret-token` | Has no effect on the function call outcome.                                |
+| message | Mock message     | `Hello World`     | Echoed back in the output. If starts with 'fail', an error will be thrown. |
 
 ### Output
 
@@ -148,13 +140,13 @@ docker compose -f docker-compose-core.yaml up --scale connectors=0
 
 #### Configure the Desktop Modeler and Use Your Connector
 
-Add the `element-templates/template-connector-message-start-event.json` to your Modeler configuration as per
+Add the `element-templates/my-connector.json` to your Modeler configuration as per
 the [Element Templates documentation](https://docs.camunda.io/docs/components/modeler/desktop-modeler/element-templates/configuring-templates/).
 
 #### Using Your Connector
 Then, to use your connector in a local Camunda environment, follow these steps:
 
-1. Run `io.camunda.connector.inbound.LocalConnectorRuntime` to start your connector.
+1. Run `io.camunda.example.LocalConnectorRuntime` to start your connector.
 2. Open the Camunda Desktop Modeler and create a new BPMN diagram.
 3. Design a process that incorporates your newly created connector.
 4. Deploy the process to your local Camunda platform.
@@ -175,7 +167,7 @@ The Connectors Runtime (LocalConnectorRuntime) requires connection details to in
 
 #### Using Your Connector
 
-1. Start your connector by executing `io.camunda.connector.inbound.LocalConnectorRuntime` in your development
+1. Start your connector by executing `io.camunda.example.LocalConnectorRuntime` in your development
    environment.
 2. Access the Web Modeler and create a new project.
 3. Click on `Create new`, then select `Upload files`. Upload the connector template from the repository you have.
