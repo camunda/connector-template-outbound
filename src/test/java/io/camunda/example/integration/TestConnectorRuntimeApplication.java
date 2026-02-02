@@ -1,4 +1,4 @@
-package io.camunda.example.classic.integration;
+package io.camunda.example.integration;
 
 import io.camunda.client.annotation.Deployment;
 import io.camunda.connector.api.document.DocumentFactory;
@@ -12,23 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-@SpringBootApplication(exclude = {ElasticsearchRestClientAutoConfiguration.class})
-@ImportAutoConfiguration({
-    io.camunda.connector.runtime.InboundConnectorsAutoConfiguration.class,
-    io.camunda.connector.runtime.OutboundConnectorsAutoConfiguration.class,
-    io.camunda.connector.runtime.WebhookConnectorAutoConfiguration.class
-})
-@MockitoBean("SearchQueryClient")
+@SpringBootApplication
 @Deployment(resources = "classpath*:/bpmn/**/*.bpmn")
-public class TestConnectorRuntimeApplication {
-
-  public static void main(String[] args) {
-    SpringApplication.run(TestConnectorRuntimeApplication.class, args);
-  }
-
-  @Bean
-  @Primary
-  public DocumentFactory documentFactory() {
-    return new DocumentFactoryImpl(InMemoryDocumentStore.INSTANCE);
-  }
-}
+public class TestConnectorRuntimeApplication { }
