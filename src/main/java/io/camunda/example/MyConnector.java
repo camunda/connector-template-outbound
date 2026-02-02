@@ -28,6 +28,9 @@ public class MyConnector implements OutboundConnectorProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MyConnector.class);
 
+  // Just for demonstration purposes, retries should be managed properly in a real connector
+  private static int RETRIES = 3;
+
   @Operation(id = "echo", name = "Echo message")
   public Object echo(@Variable EchoRequest echoRequest) {
     LOGGER.info("Executing my connector with request {}", echoRequest);
@@ -40,6 +43,7 @@ public class MyConnector implements OutboundConnectorProvider {
       throw new ConnectorRetryExceptionBuilder()
               .errorCode("RETRY")
               .message("My property started with 'retry', was: " + message)
+              .retries(RETRIES--)
               .backoffDuration(Duration.ofSeconds(1))
               .build();
     }
