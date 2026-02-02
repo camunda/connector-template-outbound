@@ -1,12 +1,12 @@
 {
   "$schema" : "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-  "name" : "Template connector v2",
-  "id" : "io.camunda.connector.Template.v2",
-  "description" : "Describe this connector",
+  "name" : "My Connector Template",
+  "id" : "io.camunda.example.template.v1",
+  "description" : "This is the description of my connector example.",
   "metadata" : {
     "keywords" : [ ]
   },
-  "documentationRef" : "https://docs.camunda.io/docs/components/connectors/out-of-the-box-connectors/available-connectors-overview/",
+  "documentationRef" : "https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-sdk/",
   "version" : 1,
   "category" : {
     "id" : "connectors",
@@ -17,8 +17,14 @@
     "value" : "bpmn:ServiceTask"
   },
   "groups" : [ {
+    "id" : "message",
+    "label" : "Message"
+  }, {
     "id" : "operation",
     "label" : "Operation"
+  }, {
+    "id" : "authentication",
+    "label" : "Authentication"
   }, {
     "id" : "connector",
     "label" : "Connector"
@@ -33,12 +39,33 @@
     "label" : "Retries"
   } ],
   "properties" : [ {
-    "value" : "io.camunda:template:2",
+    "value" : "io.camunda:example:1",
     "binding" : {
       "property" : "type",
       "type" : "zeebe:taskDefinition"
     },
     "type" : "Hidden"
+  }, {
+    "id" : "echo:message",
+    "label" : "Message",
+    "optional" : false,
+    "constraints" : {
+      "notEmpty" : true
+    },
+    "feel" : "optional",
+    "group" : "message",
+    "binding" : {
+      "name" : "message",
+      "type" : "zeebe:input"
+    },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "echo",
+        "type" : "simple"
+      } ]
+    },
+    "type" : "Text"
   }, {
     "id" : "operation",
     "label" : "Operation",
@@ -51,11 +78,11 @@
     },
     "type" : "Dropdown",
     "choices" : [ {
-      "name" : "add two numbers",
+      "name" : "Add two numbers",
       "value" : "addTwoNumbers"
     }, {
-      "name" : "send back message",
-      "value" : "sendBackMessage"
+      "name" : "Echo message",
+      "value" : "echo"
     } ]
   }, {
     "id" : "addTwoNumbers:A",
@@ -90,28 +117,7 @@
     },
     "type" : "Number"
   }, {
-    "id" : "sendBackMessage:message",
-    "label" : "Message",
-    "optional" : false,
-    "constraints" : {
-      "notEmpty" : true
-    },
-    "feel" : "optional",
-    "group" : "operation",
-    "binding" : {
-      "name" : "message",
-      "type" : "zeebe:input"
-    },
-    "condition" : {
-      "allMatch" : [ {
-        "property" : "operation",
-        "equals" : "sendBackMessage",
-        "type" : "simple"
-      } ]
-    },
-    "type" : "Text"
-  }, {
-    "id" : "sendBackMessage:authentication.user",
+    "id" : "echo:authentication.user",
     "label" : "Username",
     "description" : "The username for authentication",
     "optional" : false,
@@ -119,7 +125,7 @@
       "notEmpty" : true
     },
     "feel" : "optional",
-    "group" : "operation",
+    "group" : "authentication",
     "binding" : {
       "name" : "authentication.user",
       "type" : "zeebe:input"
@@ -127,13 +133,13 @@
     "condition" : {
       "allMatch" : [ {
         "property" : "operation",
-        "equals" : "sendBackMessage",
+        "equals" : "echo",
         "type" : "simple"
       } ]
     },
     "type" : "String"
   }, {
-    "id" : "sendBackMessage:authentication.token",
+    "id" : "echo:authentication.token",
     "label" : "Token",
     "description" : "The token for authentication",
     "optional" : false,
@@ -141,7 +147,7 @@
       "notEmpty" : true
     },
     "feel" : "optional",
-    "group" : "operation",
+    "group" : "authentication",
     "binding" : {
       "name" : "authentication.token",
       "type" : "zeebe:input"
@@ -149,7 +155,7 @@
     "condition" : {
       "allMatch" : [ {
         "property" : "operation",
-        "equals" : "sendBackMessage",
+        "equals" : "echo",
         "type" : "simple"
       } ]
     },
@@ -169,7 +175,7 @@
     "id" : "id",
     "label" : "ID",
     "description" : "ID of the element template",
-    "value" : "io.camunda.connector.Template.v2",
+    "value" : "io.camunda.example.template.v1",
     "group" : "connector",
     "binding" : {
       "key" : "elementTemplateId",
