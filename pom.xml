@@ -14,8 +14,8 @@
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <version.connectors>8.8.7</version.connectors>
-    <version.camunda>8.8.16</version.camunda>
+    <version.connectors>8.9.0</version.connectors>
+    <version.camunda>8.9.0</version.camunda>
     <version.assertj>3.27.4</version.assertj>
     <version.junit-jupiter>6.0.2</version.junit-jupiter>
     <version.awaitility>4.2.0</version.awaitility>
