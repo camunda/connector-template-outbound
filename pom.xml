@@ -33,6 +33,13 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>io.camunda.connector</groupId>
+      <artifactId>connector-validation</artifactId>
+      <version>${version.connectors}</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Element template generator annotations (compile-time only) -->
     <dependency>
       <groupId>io.camunda.connector</groupId>
@@ -96,6 +103,13 @@
       <artifactId>camunda-process-test-spring</artifactId>
       <version>${version.camunda}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.17</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
