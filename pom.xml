@@ -36,7 +36,7 @@
     <!-- Element template generator annotations (compile-time only) -->
     <dependency>
       <groupId>io.camunda.connector</groupId>
-      <artifactId>element-template-generator-core</artifactId>
+      <artifactId>element-template-generator-annotations</artifactId>
       <version>${version.connectors}</version>
       <scope>provided</scope>
     </dependency>
