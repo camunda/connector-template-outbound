@@ -17,6 +17,9 @@
     "value" : "bpmn:ServiceTask"
   },
   "groups" : [ {
+    "id" : "document",
+    "label" : "Document"
+  }, {
     "id" : "message",
     "label" : "Message"
   }, {
@@ -45,6 +48,25 @@
       "type" : "zeebe:taskDefinition"
     },
     "type" : "Hidden"
+  }, {
+    "id" : "processDocument:additionalDocuments",
+    "label" : "Additional documents",
+    "description" : "Optional list of further documents processed alongside the primary one.",
+    "optional" : true,
+    "feel" : "optional",
+    "group" : "document",
+    "binding" : {
+      "name" : "additionalDocuments",
+      "type" : "zeebe:input"
+    },
+    "condition" : {
+      "allMatch" : [ {
+        "property" : "operation",
+        "equals" : "processDocument",
+        "type" : "simple"
+      } ]
+    },
+    "type" : "String"
   }, {
     "id" : "echo:message",
     "label" : "Message",
@@ -83,6 +105,9 @@
     }, {
       "name" : "Echo message",
       "value" : "echo"
+    }, {
+      "name" : "Process document",
+      "value" : "processDocument"
     } ]
   }, {
     "id" : "addTwoNumbers:A",
