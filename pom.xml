@@ -18,8 +18,9 @@
     <version.camunda>8.9.13</version.camunda>
     <version.assertj>3.27.4</version.assertj>
     <version.junit-jupiter>6.1.2</version.junit-jupiter>
-    <version.awaitility>4.2.0</version.awaitility>
+    <version.awaitility>4.3.0</version.awaitility>
     <version.mockito>5.23.0</version.mockito>
+
     <java.version>21</java.version>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
